@@ -55,9 +55,6 @@ if (VALIDATION == 0)
           select = c("row_id","x","y","accuracy","time"))
 }
 
-inTrainRows = nrow(train)
-inTestRows = nrow(test)
-
 
 top_k <- function(hc,v1,k){
   hc_sorted <- hc[order(v1,decreasing=TRUE)]
