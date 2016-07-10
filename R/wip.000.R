@@ -44,6 +44,7 @@ if (VALIDATION == 2) # short set of train/test for quick CV
   idxTest = which(train$Cliente_ID %in% trainCli & train$Semana %in% testWeeks)
   test = train[idxTest,]
   train = train[idxTrain,]
+  train$id = 1:nrow(train)
   test$id = 1:nrow(test)
 }
 
