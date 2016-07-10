@@ -18,7 +18,7 @@ train <-
   fread('../data/train.csv', header=TRUE,
         select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
 
-if (VALIDATION == 1) # Full CV
+if (VALIDATION == 1) # Full CV (cross-validation)
 {
   nCli = 10000;
   set.seed(2300)
