@@ -390,10 +390,12 @@ for (l in lbl) print(c(l,s_err_test_all[[l]][1])) # test errors
 ##################
 # Assembling:
 
-df.train = matrix()
+df.test <- data.frame(id=test$id)
 for (j in 1:length(s_class_test_all))
-  df.train$j = s_class_test_all[[j]]$V1
+  df.test[names(s_class_test_all[j])] = s_class_test_all[[j]]$V1
 
+
+#########################
 ret = 0
 coefSum = 0
 coef = c(2.5,4,1.2,1.5,1.75,3.5,3.5,2)
