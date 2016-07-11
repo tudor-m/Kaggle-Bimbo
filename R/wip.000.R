@@ -117,6 +117,7 @@ s_class_test_all = list()
 s_err_train_all = list()
 s_err_test_all = list()
 s_feat_list_all = list()
+
 #######################################
 #   Pattern based learners:
 #######################################
@@ -268,6 +269,35 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 #######################################
 class_name   = "F"
+s_feat_list = list("Agencia_ID","Ruta_SAK")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+print(k)
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+#######################################
+
+#######################################
+class_name   = "G"
 s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
 s_fct = s_fct_mean
 
@@ -296,7 +326,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-class_name   = "G"
+class_name   = "H"
 s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
@@ -325,7 +355,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-class_name   = "H"
+class_name   = "I"
 s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
 s_fct = s_fct_mean
 
@@ -352,11 +382,18 @@ s_err_train_all[[class_name]] = s_err_train
 s_err_test_all[[class_name]] = s_err_test
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
-
-
+# list the "classes":
+lbl = names(s_feat_list_all)
+for (l in lbl) print(c(l,s_feat_list_all[[l]][1])) # features
+for (l in lbl) print(c(l,s_err_test_all[[l]][1])) # test errors
 
 ##################
 # Assembling:
+
+df.train = matrix()
+for (j in 1:length(s_class_test_all))
+  df.train$j = s_class_test_all[[j]]$V1
+
 ret = 0
 coefSum = 0
 coef = c(2.5,4,1.2,1.5,1.75,3.5,3.5,2)
