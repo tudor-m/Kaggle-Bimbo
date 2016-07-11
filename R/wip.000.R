@@ -116,6 +116,11 @@ s_class_train_all = list()
 s_class_test_all = list()
 s_err_train_all = list()
 s_err_test_all = list()
+s_feat_list_all = list()
+#######################################
+#   Pattern based learners:
+#######################################
+
 #######################################
 class_name   = "A"
 s_feat_list = list("Cliente_ID","Producto_ID")
@@ -137,15 +142,12 @@ s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$V1
-
 s_class_all[[class_name]] = s_class
 s_class_train_all[[class_name]] = s_class_train
 s_class_test_all[[class_name]] = s_class_test
 s_err_train_all[[class_name]] = s_err_train
 s_err_test_all[[class_name]] = s_err_test
-
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
@@ -154,160 +156,204 @@ s_feat_list = list("Ruta_SAK","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
-s_class <- train[,list(s_fct_mean(Demanda_uni_equil),.N),by=c_feat]
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
 s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-bk = 0.45*mean(s_class_test$V1,na.rm = TRUE)
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
 idxna = which(is.na(s_class_test$V1))
 s_class_test[which(is.na(s_class_test$V1))] = bk
 
-estE = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$V1
-#######################################
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
 
+print(s_err_train[[1]])
+print(s_err_test[[1]])
 
-#######################################
-# Class B:
-class_name   = "B"
-s_feat_list = c("Ruta_SAK","Producto_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Ruta_SAK,Producto_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
-
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
-
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
-
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-# Class C:
 class_name   = "C"
-s_feat_list = c("Agencia_ID","Producto_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Ruta_SAK,Agencia_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Agencia_ID","Producto_ID")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(2.*s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-# Class D:
 class_name   = "D"
-s_feat_list = c("Ruta_SAK","Cliente_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Ruta_SAK,Cliente_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Ruta_SAK","Cliente_ID")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-# Class E:
 class_name   = "E"
-s_feat_list = c("Agencia_ID","Cliente_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Agencia_ID,Cliente_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Agencia_ID","Cliente_ID")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-# Class F:
 class_name   = "F"
-s_feat_list = c("Agencia_ID","Cliente_ID","Producto_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Agencia_ID,Cliente_ID,Producto_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
 #######################################
-# Class G:
 class_name   = "G"
-s_feat_list = c("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Agencia_ID,Cliente_ID,Producto_ID,Ruta_SAK)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
 
-# Class H:
+#######################################
 class_name   = "H"
-s_feat_list = c("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
-s_class <- train[,list(.N,floor(mean(Demanda_uni_equil))),by=list(Agencia_ID,Cliente_ID,Producto_ID,Canal_ID)]
-setnames(s_class,c(s_feat_list,"N","V1"))
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
+s_fct = s_fct_mean
 
-s_class_test <- merge(test,s_class,by=s_feat_list,all.x=TRUE)[order(id),list(id,V1)]
-setnames(s_class_test,c("id","Demanda_uni_equil"))
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-bk = 0.45*mean(s_class_test$Demanda_uni_equil,na.rm = TRUE)
-idxna = which(is.na(s_class_test$Demanda_uni_equil))
-s_class_test[which(is.na(s_class_test$Demanda_uni_equil))] = bk
+s_class_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_class_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 
-estE = errMeasure(s_class_test$Demanda_uni_equil,test$Demanda_uni_equil)
-print(estE[[1]])
-estRetE[[class_name]] = estE
-estRet[[class_name]] = s_class_test$Demanda_uni_equil
+bk = 0.4*mean(s_class_test$V1,na.rm = TRUE)
+idxna = which(is.na(s_class_test$V1))
+s_class_test[which(is.na(s_class_test$V1))] = bk
+
+s_err_train = errMeasure(s_class_train$V1,train$Demanda_uni_equil)
+s_err_test = errMeasure(s_class_test$V1,test$Demanda_uni_equil)
+
+print(s_err_train[[1]])
+print(s_err_test[[1]])
+
+s_class_all[[class_name]] = s_class
+s_class_train_all[[class_name]] = s_class_train
+s_class_test_all[[class_name]] = s_class_test
+s_err_train_all[[class_name]] = s_err_train
+s_err_test_all[[class_name]] = s_err_test
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
 #######################################
+
+
 
 ##################
 # Assembling:
