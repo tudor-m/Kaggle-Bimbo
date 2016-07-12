@@ -12,8 +12,8 @@ source("futil.R")
 # 0 - TEST
 # 1 - CV
 # 2 - CV with a very small set
-VALIDATION = 2
-#VALIDATION = 1
+#VALIDATION = 2
+VALIDATION = 1
 
 train <- 
   fread('../data/train.csv', header=TRUE,
@@ -21,17 +21,21 @@ train <-
 
 if (VALIDATION == 1) # Full CV (cross-validation)
 {
-  nCli = 10000;
-  set.seed(2300)
-  trainCli = sample(unique(train$Cliente_ID),nCli)
-  trainWeeks = c(3,4,5,6,7,8)
-  testWeeks = c(9)
-  idxTrain = which(train$Semana %in% trainWeeks)
-  idxTest = which(train$Semana %in% testWeeks)
+  #nCli = 10000;
+  #set.seed(2300)
+  trainCli = unique(train$Cliente_ID) # get all the clients
+  trainWeeks = c(3,4,5,6,7)
+  testWeeks = c(8)
+  testWeeks2 = c(9)
+  idxTrain = which(train$Cliente_ID %in% trainCli & train$Semana %in% trainWeeks)
+  idxTest = which(train$Cliente_ID %in% trainCli & train$Semana %in% testWeeks)
+  idxTest2 = which(train$Cliente_ID %in% trainCli & train$Semana %in% testWeeks2)
   test = train[idxTest,]
+  test2 = train[idxTest2,]
   train = train[idxTrain,]
   train$id = 1:nrow(train)
   test$id = 1:nrow(test)
+  test2$id = 1:nrow(test2)
 }
 
 if (VALIDATION == 2) # short set of train/test for quick CV
@@ -632,7 +636,7 @@ df.test <- data.frame(id=test$id)
 for (j in 1:length(s_feat_test_all))
   df.test[names(s_feat_test_all[j])] = s_feat_test_all[[j]]$V1
 
-# try lm:
+# try glm:
 fit = glm(test$Demanda_uni_equil ~ .,data=df.test)
 
 df.test2 <- data.frame(id=test2$id)
