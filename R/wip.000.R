@@ -4,6 +4,7 @@ library(lava)
 library(data.table)
 library(ggplot2)
 library(caret)
+library(rmongodb)
 
 source("futil.R")
 #source("processSubmissions.R)")
@@ -12,8 +13,8 @@ source("futil.R")
 # 0 - TEST
 # 1 - CV
 # 2 - CV with a very small set
-VALIDATION = 2
-#VALIDATION = 1
+#VALIDATION = 2
+VALIDATION = 1
 
 train <- 
   fread('../data/train.csv', header=TRUE,
@@ -36,6 +37,10 @@ if (VALIDATION == 1) # Full CV (cross-validation)
   train$id = 1:nrow(train)
   test$id = 1:nrow(test)
   test2$id = 1:nrow(test2)
+  remove(idxTrain)
+  remove(idxTest)
+  remove(idxTest2)
+  remove(trainCli)
 }
 
 if (VALIDATION == 2) # short set of train/test for quick CV
@@ -126,7 +131,6 @@ subName = ".wip.000.csv"
 
 estRet = list()
 estRetE = list()
-s_class_all = list()
 s_feat_train_all = list()
 s_feat_test_all = list()
 s_feat_test2_all = list()
@@ -156,9 +160,8 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -166,7 +169,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -193,9 +196,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -203,7 +206,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -230,9 +233,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -240,7 +243,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -267,9 +270,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -277,7 +280,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -304,9 +307,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -314,7 +317,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -340,9 +343,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -350,7 +353,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -377,9 +380,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -387,7 +390,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -414,9 +417,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -424,7 +427,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -451,9 +454,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -461,7 +464,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -488,9 +491,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -498,7 +501,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -525,9 +528,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -535,7 +538,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -562,9 +565,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -572,7 +575,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -599,9 +602,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -609,7 +612,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -636,9 +639,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -646,7 +649,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -673,9 +676,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -683,7 +686,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -710,9 +713,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -720,7 +723,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -746,9 +749,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -756,7 +759,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -783,9 +786,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -793,7 +796,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -820,9 +823,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -830,7 +833,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -857,9 +860,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -867,7 +870,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -894,9 +897,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -904,7 +907,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -931,9 +934,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -941,7 +944,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -968,9 +971,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -978,7 +981,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1005,9 +1008,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1015,7 +1018,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1042,9 +1045,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1052,7 +1055,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1079,9 +1082,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1089,7 +1092,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1116,9 +1119,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1126,7 +1129,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1152,9 +1155,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1162,7 +1165,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1189,9 +1192,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1199,7 +1202,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1226,9 +1229,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1236,7 +1239,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1263,9 +1266,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1273,7 +1276,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1300,9 +1303,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1310,7 +1313,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1337,9 +1340,9 @@ s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
 print(s_err_train[[1]])
 print(s_err_test[[1]])
 
-s_class_all[[class_name]] = s_class
-s_feat_train_all[[class_name]] = s_feat_train
-s_feat_test_all[[class_name]] = s_feat_test
+
+s_feat_train_all[[class_name]] = s_feat_train$V1
+s_feat_test_all[[class_name]] = s_feat_test$V1
 s_err_train_all[[class_name]] = s_err_train[[1]]
 s_err_test_all[[class_name]] = s_err_test[[1]]
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
@@ -1347,7 +1350,7 @@ s_feat_list_all[[class_name]] = unlist(s_feat_list)
 s_feat_test2 <- merge(test2,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test2$V1))
 s_feat_test2[idxna2,]$V1 = bk
-s_feat_test2_all[[class_name]] = s_feat_test2
+s_feat_test2_all[[class_name]] = s_feat_test2$V1
 s_err_test2 = errMeasure(s_feat_test2$V1,test2$Demanda_uni_equil)
 s_err_test2_all[[class_name]] = s_err_test2[[1]]
 print(s_err_test2[[1]])
@@ -1373,14 +1376,16 @@ for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_test2_all[[l]][1]))) 
 
 df.test <- data.frame(id=test$id)
 for (j in 1:length(s_feat_test_all))
-  df.test[names(s_feat_test_all[j])] = s_feat_test_all[[j]]$V1
+  df.test[names(s_feat_test_all[j])] = s_feat_test_all[[j]]
+df.test$id <- NULL
 
 # try glm:
 fit = glm(test$Demanda_uni_equil ~ .,data=df.test)
 
 df.test2 <- data.frame(id=test2$id)
 for (j in 1:length(s_feat_test2_all))
-  df.test2[names(s_feat_test2_all[j])] = s_feat_test2_all[[j]]$V1
+  df.test2[names(s_feat_test2_all[j])] = s_feat_test2_all[[j]]
+df.test2$id <- NULL
 
 pred2 = predict.glm(fit,df.test2)
 pred2[which(pred2<0)] = 0
