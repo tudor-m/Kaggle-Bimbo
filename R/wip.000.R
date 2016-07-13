@@ -14,15 +14,16 @@ source("futil.R")
 # 0 - TEST
 # 1 - CV
 # 2 - CV with a very small set
-VALIDATION = 2
-#VALIDATION = 1
+# "EXTERNAL" - CV defined external
 
-train <- 
-  fread('../data/train.csv', header=TRUE,
-        select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
+if (Validation != "EXTERNAL")
+  VALIDATION = 2
 
 if (VALIDATION == 1) # Full CV (cross-validation)
 {
+  train <- 
+    fread('../data/train.csv', header=TRUE,
+          select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
   #nCli = 10000;
   #set.seed(2300)
   trainCli = unique(train$Cliente_ID) # get all the clients
@@ -46,10 +47,14 @@ if (VALIDATION == 1) # Full CV (cross-validation)
 
 if (VALIDATION == 2) # short set of train/test for quick CV
 {
+  train <- 
+    fread('../data/train.csv', header=TRUE,
+          select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
   set.seed(2300)
 
   nCli = 50000;
-  jBin = 10;
+  jBin = 1;
+  
   trainCli = sample(unique(train$Cliente_ID),nCli*(1+jBin))[((jBin-1)*nCli+1):(jBin*nCli)]
   trainWeeks = c(3,4,5,6,7)
   testWeeks = c(8)
@@ -67,6 +72,9 @@ if (VALIDATION == 2) # short set of train/test for quick CV
 
 if (VALIDATION == 0)
 {
+  train <- 
+    fread('../data/train.csv', header=TRUE,
+          select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
   test <- 
     fread('../data/test.csv', header=TRUE,
           select = c("row_id","x","y","accuracy","time"))
