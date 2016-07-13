@@ -13,8 +13,8 @@ source("futil.R")
 # 0 - TEST
 # 1 - CV
 # 2 - CV with a very small set
-#VALIDATION = 2
-VALIDATION = 1
+VALIDATION = 2
+#VALIDATION = 1
 
 train <- 
   fread('../data/train.csv', header=TRUE,
@@ -45,9 +45,11 @@ if (VALIDATION == 1) # Full CV (cross-validation)
 
 if (VALIDATION == 2) # short set of train/test for quick CV
 {
-  nCli = 10000;
   set.seed(2300)
-  trainCli = sample(unique(train$Cliente_ID),nCli)
+
+  nCli = 50000;
+  jBin = 8;
+  trainCli = sample(unique(train$Cliente_ID),nCli*(1+jBin))[((jBin-1)*nCli+1):(jBin*nCli)]
   trainWeeks = c(3,4,5,6,7)
   testWeeks = c(8)
   testWeeks2 = c(9)
@@ -1393,27 +1395,6 @@ errPred2 = errMeasure(pred2,test2$Demanda_uni_equil)
 print(errPred2[[1]])
 
 #######################################
-
-
-
-
-#########################
-ret = 0
-coefSum = 0
-coef = c(2.5,4,1.2,1.5,1.75,3.5,3.5,2)
-for (i in c(1,2,3,5,6,7,8))
-{
-  #coef = 1/(0.2+(as.numeric(estRetE[[i]][1]))^4)
-  coefSum = coefSum + coef[i]
-  ret = ret + coef[i]*estRet[[i]]
-}
-ret = ret/coefSum
-
-estE = errMeasure(ret,test$Demanda_uni_equil)
-print(estE[[1]])
-for (i in 1:length(estRetE)) print(estRetE[[i]][1])
-#################
-
 
 
 
