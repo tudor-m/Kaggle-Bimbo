@@ -73,7 +73,7 @@ if (VALIDATION == 3) # short set of train/test for quick CV
     fread('../data/train.csv', header=TRUE,
           select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
   
-  nCli = 5000;
+  nCli = 50000;
   #nCli = 50000;
   for (jBin in 1:ceiling(length(unique(train.bak$Cliente_ID))/nCli))
   {
