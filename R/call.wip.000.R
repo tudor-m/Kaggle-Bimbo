@@ -5,7 +5,7 @@ library(data.table)
 # 2 - CV with a small set
 # 3 - CV in a loop
 
-VALIDATION = 3
+VALIDATION = 2
 VERBOSE = 0
 wip.R = "wip.000.R"
 
@@ -41,16 +41,27 @@ if (VALIDATION == 1) # Full CV (cross-validation)
 
 if (VALIDATION == 2) # short set of train/test for quick CV
 {
-  train <- 
+  train.bak <- 
     fread('../data/train.csv', header=TRUE,
           select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
+  
+  nCli = 50000;
+  nu_Cl = length(unique(train.bak$Cliente_ID))
+  n_Cl = length(train.bak$Cliente_ID)
+  
+  
+  train <- train.bak
   set.seed(2300)
   
-  nCli = 5000;
+  nCli = 50000;
   #nCli = 50000;
-  jBin = 1;
+  jBin = 17;
+  jMin = (jBin-1)*nCli+1
+  jMax = min(jBin*nCli,nu_Cl)
+  train <- train.bak
+  set.seed(2300)
   
-  trainCli = sample(unique(train$Cliente_ID),nCli*(1+jBin))[((jBin-1)*nCli+1):(jBin*nCli)]
+  trainCli = sample(unique(train$Cliente_ID),length(unique(train$Cliente_ID)))[((jBin-1)*nCli+1):(jBin*nCli)]
   trainWeeks = c(3,4,5,6,7)
   testWeeks = c(8)
   testWeeks2 = c(9)
@@ -63,6 +74,7 @@ if (VALIDATION == 2) # short set of train/test for quick CV
   train$id = 1:nrow(train)
   test$id = 1:nrow(test)
   test2$id = 1:nrow(test2)
+  VERBOSE = 1
   source(wip.R)
 }
 
