@@ -53,7 +53,7 @@ if (VALIDATION == 2) # short set of train/test for quick CV
   train <- train.bak
   set.seed(2300)
   
-  nCli = 50000;
+  nCli = 10000;
   #nCli = 50000;
   jBin = 17;
   jMin = (jBin-1)*nCli+1
@@ -95,7 +95,7 @@ if (VALIDATION == 3) # FULL CV
   cvData$id <- 1:nrow(cvData)
   testData$id <- 1:nrow(testData)
   
-  nCli = 50000;
+  nCli = 10000;
   nu_Cl = length(unique(trainData$Cliente_ID))
   n_Cl = length(trainData$Cliente_ID)
 
