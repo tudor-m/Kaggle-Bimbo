@@ -468,7 +468,8 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "A1"
-s_feat_list = list("Cliente_ID","Producto_ID","Venta_uni_hoy")
+#s_feat_list = list("Cliente_ID","Producto_ID","Venta_uni_hoy")
+s_feat_list = list("Cliente_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -507,7 +508,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "B1"
-s_feat_list = list("Ruta_SAK","Producto_ID","Venta_uni_hoy")
+s_feat_list = list("Ruta_SAK","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -546,7 +547,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "C1"
-s_feat_list = list("Agencia_ID","Producto_ID","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -585,7 +586,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "D1"
-s_feat_list = list("Ruta_SAK","Cliente_ID","Venta_uni_hoy")
+s_feat_list = list("Ruta_SAK","Cliente_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -624,7 +625,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "E1"
-s_feat_list = list("Agencia_ID","Cliente_ID","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -663,7 +664,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "F1"
-s_feat_list = list("Agencia_ID","Ruta_SAK","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -703,7 +704,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "G1"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -742,7 +743,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "H1"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -781,7 +782,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "I1"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID","Venta_uni_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -820,7 +821,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "J1"
-s_feat_list = list("Producto_ID","Canal_ID","Venta_uni_hoy")
+s_feat_list = list("Producto_ID","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -859,7 +860,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "K1"
-s_feat_list = list("Cliente_ID","Canal_ID","Venta_uni_hoy")
+s_feat_list = list("Cliente_ID","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -898,7 +899,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "A2"
-s_feat_list = list("Cliente_ID","Producto_ID","Venta_hoy")
+s_feat_list = list("Cliente_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -937,7 +938,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "B2"
-s_feat_list = list("Ruta_SAK","Producto_ID","Venta_hoy")
+s_feat_list = list("Ruta_SAK","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -976,7 +977,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "C2"
-s_feat_list = list("Agencia_ID","Producto_ID","Venta_hoy")
+s_feat_list = list("Agencia_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1015,7 +1016,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "D2"
-s_feat_list = list("Ruta_SAK","Cliente_ID","Venta_hoy")
+s_feat_list = list("Ruta_SAK","Cliente_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1054,7 +1055,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "E2"
-s_feat_list = list("Agencia_ID","Cliente_ID","Venta_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1093,7 +1094,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "F2"
-s_feat_list = list("Agencia_ID","Ruta_SAK","Venta_hoy")
+s_feat_list = list("Agencia_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1132,7 +1133,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "G2"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Venta_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1171,7 +1172,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "H2"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Venta_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1210,7 +1211,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "I2"
-s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID","Venta_hoy")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1249,7 +1250,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "J2"
-s_feat_list = list("Producto_ID","Canal_ID","Venta_hoy")
+s_feat_list = list("Producto_ID","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1288,7 +1289,7 @@ if (VERBOSE==1) print(s_err_test[[1]])
 
 #######################################
 class_name   = "K2"
-s_feat_list = list("Cliente_ID","Canal_ID","Venta_hoy")
+s_feat_list = list("Cliente_ID","Canal_ID")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))

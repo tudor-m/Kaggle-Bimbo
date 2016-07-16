@@ -125,6 +125,10 @@ if (VALIDATION == 3) # FULL CV
     idx = which(total_pred_test$id %in% test$id)
     total_pred_test[idx,]$val = pred_test
   }
+  idx_1 = which(total_pred_test$val==-1)
+  total_pred_test[idx_1,]$val = 4 # empirical value
+  err_total = errMeasure(total_pred_test$val,testData$Demanda_uni_equil)[[1]]
+  print(c("total err:",err_total[[1]]))
 }
 
 
