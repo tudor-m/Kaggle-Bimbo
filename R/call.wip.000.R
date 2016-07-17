@@ -95,7 +95,7 @@ if (VALIDATION == 3) # FULL CV
   cvData$id <- 1:nrow(cvData)
   testData$id <- 1:nrow(testData)
   
-  nCli = 10000;
+  nCli = 50000;
   nu_Cl = length(unique(trainData$Cliente_ID))
   n_Cl = length(trainData$Cliente_ID)
 
@@ -119,7 +119,7 @@ if (VALIDATION == 3) # FULL CV
     test     = testData[idxTest,]
 
     print(c("jBin: ",jBin))
-
+    VERBOSE = 0
     source(wip.R)
     
     idx = which(total_pred_test$id %in% test$id)
