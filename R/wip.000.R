@@ -2504,22 +2504,74 @@ for (j in 1:length(s_feat_test_all))
 df.test$id <- NULL
 
 
-# fit on train ... :
-#fit = glm(cv$Demanda_uni_equil ~ . -DMAX -EMAX -JMAX -A1MAX -B1MAX -C1MAX -D1MAX -E1MAX -F1MAX -G1MAX -H1MAX -I1MAX -J1MAX -K1MAX -A2MAX -B2MAX -C2MAX -D2MAX -E2MAX -F2MAX -G2MAX -H2MAX -I2MAX -J2MAX -K2MAX,data=df.cv)
-fit.train = glm(train$Demanda_uni_equil ~ A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+AB1+A1+B1+C1+D1+E1+B2+C2+D2+F2+G2+A1MAX+B1MAX+C1MAX+I(D1MAX^0.5),data=df.train,model=FALSE,family = gaussian)
-#fit.train = glm(train$Demanda_uni_equil ~ B+AB+G,data=df.train,model=FALSE,family = gaussian)
+# Venta_uni_hoy:
+# fit on train ...
+fmla_string2 = "A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+AB1+A1+B1+C1+B2+C2+D2+F2+G2+A1MAX+B1MAX+C1MAX+I(D1MAX^0.5)"
+fmla_string1 = "AA1+AB1+A1+B1+C1+D1+E1+F1+G1+H1+I1+J1+K1+I(AA1MAX^2)+AB1MAX+A1MAX+B1MAX+C1MAX+D1MAX+E1MAX+F1MAX+G1MAX+H1MAX+I1MAX+J1MAX+K1MAX"
+fmla_string = fmla_string1
 
+fmla = as.formula(paste("train$Venta_uni_hoy ~ ",fmla_string,collapse = ""))
+fit.train = glm(fmla,data=df.train,model=FALSE,family = gaussian)
+fit.train = lm(fmla,data=df.train,model=FALSE)
+
+# fit on cv ...
+fmla = as.formula(paste("cv$Venta_uni_hoy ~ ",fmla_string,collapse = ""))
+fit.train = glm(fmla,data=df.cv,model=FALSE,family = gaussian)
+# predict on test ...
+pred_test = predict.glm(fit.train,df.test)
+pred_test = predict.lm(fit.train,df.test)
+pred_test[which(pred_test<0)] = 0
+err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
+if (VERBOSE == 1){
+  print("Venta_uni_hoy, test:")
+  print(err_pred_test[[1]])
+}
+
+#fit.train = glm(train$Venta_uni_hoy ~ A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+AB1+A1+B1+C1+D1+E1+B2+C2+D2+F2+G2+A1MAX+B1MAX+C1MAX+I(D1MAX^0.5),data=df.train,model=FALSE,family = gaussian)
+#fit.train = glm(train$Venta_uni_hoy ~ A1+B1+D1+E1+F1+G1+H1+I1+J1+K1+A1MAX+B1MAX+D1MAX+E1MAX+H1MAX+I1MAX,data=df.train,model=FALSE,family = gaussian)
+# predict on cv ...
+pred_cv = predict.glm(fit.train,df.cv)
+pred_cv[which(pred_cv<0)] = 0
+err_pred_cv = errMeasure(pred_cv,cv$Venta_uni_hoy)
+# predict on test ...
+pred_test = predict.glm(fit.train,df.test)
+pred_test[which(pred_test<0)] = 0
+err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
+if (VERBOSE == 1){
+  print("Venta_uni_hoy, cv:")
+  print(err_pred_cv[[1]])
+  print("Venta_uni_hoy, test:")
+  print(err_pred_test[[1]])
+}
+
+
+
+
+# Demanda_uni_equil:
+print("Demanda_uni_equil")
+# fit on train ... :
+fit = glm(cv$Demanda_uni_equil ~ . -DMAX -EMAX -JMAX -A1MAX -B1MAX -C1MAX -D1MAX -E1MAX -F1MAX -G1MAX -H1MAX -I1MAX -J1MAX -K1MAX -A2MAX -B2MAX -C2MAX -D2MAX -E2MAX -F2MAX -G2MAX -H2MAX -I2MAX -J2MAX -K2MAX,data=df.cv)
+#fit.train = glm(train$Demanda_uni_equil ~ B+AB+G,data=df.train,model=FALSE,family = gaussian)
 # ... predict on cv :
 pred_cv = predict.glm(fit.train,df.cv)
 pred_cv[which(pred_cv<0)] = 0
 err_pred_cv = errMeasure(pred_cv,cv$Demanda_uni_equil)
-if (VERBOSE == 1) print(err_pred_cv[[1]])
+# predict on test ...
+pred_test = predict.glm(fit.train,df.test)
+pred_test[which(pred_test<0)] = 0
+err_pred_test = errMeasure(pred_test,test$Demanda_uni_equil)
+if (VERBOSE == 1){
+  print("Demanda_uni_equil")
+  print(err_pred_cv[[1]])
+}
 
 
 # ... predict on test :
 pred_test = predict.glm(fit.train,df.test)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure(pred_test,test$Demanda_uni_equil)
+
+err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
 print(err_pred_test[[1]])
 
 #######################################
