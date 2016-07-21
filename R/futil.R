@@ -9,6 +9,16 @@ errMeasure <- function (vPred, vTarget)
   return(list(sqrt(mean(s12,na.rm = TRUE)),(s1-s2),s12))
 }
 
+errMeasure2 <- function (vPred, vTarget)
+{
+  if (length(vPred) != length(vTarget))
+    return(-1);
+  s1 = vPred
+  s2 = vTarget
+  s12 = (s1-s2)^2
+  return(list(sqrt(mean(s12,na.rm = TRUE)),(s1-s2),s12))
+}
+
 errMeasure1 <- function (vPred, vTarget)
 {
   vPred = as.data.frame(vPred)
