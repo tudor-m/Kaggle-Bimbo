@@ -1,3 +1,6 @@
 .Rproj.user
 .Rhistory
 .RData
+data/cliente_tabla.csv
+data/producto_tabla.csv
+*.csv
