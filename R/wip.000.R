@@ -2488,7 +2488,7 @@ if (VERBOSE == 1)
 
 
 ##################
-# Assembling with glm:
+# Assembling:
 
 df.train <- data.frame(id=train$id)
 for (j in 1:length(s_feat_train_all))
@@ -2515,43 +2515,27 @@ fmla_string = fmla_string4
 fmla_glmnet = c("B","C","D","E","AA1","AB1","B1","C1","D1","E1","G1","B1MAX","C1MAX","D1MAX","E1MAX","B2","C2","D2","E2","G2")
 fmla_glmnet = c("AA1","AB1","A1MAX","B1","C1","D1","E1","G1","B1MAX","C1MAX","D1MAX","E1MAX")
 fmla_glmnet = c("AA","AB","AMAX","B","C","D","E","G","BMAX","CMAX","DMAX","EMAX")
+fmla_glmnet = c("B1","C1","D1","E1","G1","B1MAX","C1MAX","D1MAX","E1MAX")
+fmla_glmnet = c("B1","C1","D1","E1","G1")
 
 
+# with GLMNET:
 # fit on train ...
-fmla = as.formula(paste("train$Demanda_uni_equil ~ ",fmla_string,collapse = ""))
-fit.train = glm(fmla,data=df.train,model=FALSE,family = gaussian(link=identity))
 x = as.matrix(df.train[,fmla_glmnet])
-#x = as.matrix(df.train[,c("B","C","D1","G1")])
-y = as.matrix(train$Demanda_uni_equil)
+y = as.matrix(train$Venta_uni_hoy)
 fit.train <- glmnet(x, y, family="gaussian", alpha=0, lambda=NULL, nlambda=10)
 # predict on cv ...
-pred_cv = predict.glm(fit.train,df.cv)
 x = as.matrix(df.cv[,fmla_glmnet])
-#x = as.matrix(df.cv[,c("B","C","D1","G1")])
 pred_cv <- predict.glmnet(fit.train, x, type="link",s=fit.train$lambda[length(fit.train$lambda)])
-#pred_cv = predict(fit.train,df.cv)
 pred_cv[which(pred_cv<0)] = 0
-err_pred_cv = errMeasure(pred_cv,cv$Demanda_uni_equil)
+err_pred_cv = errMeasure(pred_cv,cv$Venta_uni_hoy)
 if (VERBOSE == 1){
   print("Venta_uni_hoy, cv:")
   print(err_pred_cv[[1]])
 }
 # predict on test ...
-pred_test = predict.glm(fit.train,df.test)
 x = as.matrix(df.test[,fmla_glmnet])
-#x = as.matrix(df.cv[,c("B","C","D1","G1")])
 pred_test <- predict.glmnet(fit.train, x, type="link",s=fit.train$lambda[length(fit.train$lambda)])
-#pred_test = predict(fit.train,df.test)
-pred_test[which(pred_test<0)] = 0
-err_pred_test = errMeasure(pred_test,test$Demanda_uni_equil)
-if (VERBOSE == 1){
-  print("Venta_uni_hoy, test:")
-  print(err_pred_test[[1]])
-}
-
-
-# predict on test ...
-pred_test = predict.glm(fit.train,df.test)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
 if (VERBOSE == 1){
@@ -2559,65 +2543,28 @@ if (VERBOSE == 1){
   print(err_pred_test[[1]])
 }
 
-
-# fit on cv ...
-fmla = as.formula(paste("cv$Venta_uni_hoy ~ ",fmla_string,collapse = ""))
-fit.train = glm(fmla,data=df.cv,model=FALSE,family = gaussian)
-# predict on test ...
-pred_test = predict.glm(fit.train,df.test)
-pred_test[which(pred_test<0)] = 0
-err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
-if (VERBOSE == 1){
-  print("Venta_uni_hoy, test:")
-  print(err_pred_test[[1]])
-}
-
-#fit.train = glm(train$Venta_uni_hoy ~ A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+AB1+A1+B1+C1+D1+E1+B2+C2+D2+F2+G2+A1MAX+B1MAX+C1MAX+I(D1MAX^0.5),data=df.train,model=FALSE,family = gaussian)
-#fit.train = glm(train$Venta_uni_hoy ~ A1+B1+D1+E1+F1+G1+H1+I1+J1+K1+A1MAX+B1MAX+D1MAX+E1MAX+H1MAX+I1MAX,data=df.train,model=FALSE,family = gaussian)
+# with GLM:
+# fit on train ...
+fmla = as.formula(paste("train$Venta_uni_hoy ~ ",fmla_string,collapse = ""))
+fit.train = glm(fmla,data=df.train,model=FALSE,family = gaussian(link=identity))
 # predict on cv ...
 pred_cv = predict.glm(fit.train,df.cv)
 pred_cv[which(pred_cv<0)] = 0
 err_pred_cv = errMeasure(pred_cv,cv$Venta_uni_hoy)
+if (VERBOSE == 1){
+  print("Venta_uni_hoy, cv:")
+  print(err_pred_cv[[1]])
+}
 # predict on test ...
 pred_test = predict.glm(fit.train,df.test)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
 if (VERBOSE == 1){
-  print("Venta_uni_hoy, cv:")
-  print(err_pred_cv[[1]])
   print("Venta_uni_hoy, test:")
   print(err_pred_test[[1]])
 }
 
 
-
-
-# Demanda_uni_equil:
-print("Demanda_uni_equil")
-# fit on train ... :
-fit = glm(cv$Demanda_uni_equil ~ . -DMAX -EMAX -JMAX -A1MAX -B1MAX -C1MAX -D1MAX -E1MAX -F1MAX -G1MAX -H1MAX -I1MAX -J1MAX -K1MAX -A2MAX -B2MAX -C2MAX -D2MAX -E2MAX -F2MAX -G2MAX -H2MAX -I2MAX -J2MAX -K2MAX,data=df.cv)
-#fit.train = glm(train$Demanda_uni_equil ~ B+AB+G,data=df.train,model=FALSE,family = gaussian)
-# ... predict on cv :
-pred_cv = predict.glm(fit.train,df.cv)
-pred_cv[which(pred_cv<0)] = 0
-err_pred_cv = errMeasure(pred_cv,cv$Demanda_uni_equil)
-# predict on test ...
-pred_test = predict.glm(fit.train,df.test)
-pred_test[which(pred_test<0)] = 0
-err_pred_test = errMeasure(pred_test,test$Demanda_uni_equil)
-if (VERBOSE == 1){
-  print("Demanda_uni_equil")
-  print(err_pred_cv[[1]])
-}
-
-
-# ... predict on test :
-pred_test = predict.glm(fit.train,df.test)
-pred_test[which(pred_test<0)] = 0
-err_pred_test = errMeasure(pred_test,test$Demanda_uni_equil)
-
-err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
-print(err_pred_test[[1]])
 
 #######################################
 

@@ -5,7 +5,7 @@ library(data.table)
 # 2 - CV with a small set
 # 3 - CV in a loop
 
-VALIDATION = 3
+VALIDATION = 2
 VERBOSE = 0
 wip.R = "wip.000.R"
 
