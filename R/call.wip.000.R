@@ -4,20 +4,22 @@ library(data.table)
 # 1 - CV total
 # 2 - CV with a small set
 # 3 - CV in a loop
+# 4 - mini Validation
 
-VALIDATION = 2
+VALIDATION = 4
 VERBOSE = 0
+DATA_RELOAD = 1
 wip.R = "wip.000.R"
 
-
-jBinCv = 2
-if (VALIDATION == 3 | VALIDATION == 2) # FULL CV
+jBinCv = 3;
+if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4) # FULL CV
 {
+  if (DATA_RELOAD == 1) {
   train.bak <- 
     fread('../data/train.csv', header=TRUE,
           select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
-  trainWeeks = c(3,4,5,6,7)
-  cvWeeks = c(8)
+  trainWeeks = c(3,4,5,6,7,8)
+  cvWeeks = c(9)
   testWeeks = c(9)
   
   trainData <- train.bak[which(train.bak$Semana %in% trainWeeks)]
@@ -27,8 +29,10 @@ if (VALIDATION == 3 | VALIDATION == 2) # FULL CV
   trainData$id <- 1:nrow(trainData)
   cvData$id <- 1:nrow(cvData)
   testData$id <- 1:nrow(testData)
+  }
   
   nCli = 50000;
+  if (VALIDATION == 4) nCli = 10000;
   nu_Cl = length(unique(trainData$Cliente_ID))
   n_Cl = length(trainData$Cliente_ID)
 
@@ -53,6 +57,7 @@ if (VALIDATION == 3 | VALIDATION == 2) # FULL CV
     test     = testData[idxTest,]
 
     print(c("jBin: ",jBin))
+    if (VALIDATION == 4) VERBOSE = 1
     if (VALIDATION == 2) VERBOSE = 1
     if (VALIDATION == 3) VERBOSE = 0
     source(wip.R)
