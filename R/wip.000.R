@@ -2511,7 +2511,7 @@ for (j in 1:length(s_feat_test_all))
 df.test$id <- NULL
 
 
-# Venta_uni_hoy:
+# Predict Venta_uni_hoy:
 fmla_string4 = "B+C+D+E+B1+C1+D1+E1+G1"
 fmla_string3 = "B+C+D1+G1"
 fmla_string2 = "A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+AB1+A1+B1+C1+B2+C2+D2+F2+G2+A1MAX+B1MAX+C1MAX+I(D1MAX^0.5)"
@@ -2520,12 +2520,13 @@ fmla_string = fmla_string4
 
 fmla_glmnet = c("B1","C1","D1","E1","G1")
 
-#fmla_c_penalized = c("B1","C1","D1","E1","G1");
-fmla_c_penalized = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
+fmla_c_penalized = c("B1","C1","D1","E1","G1");
+# this is good as well: fmla_c_penalized = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
 fmla_c = fmla_c_penalized
 fmla_penalized = as.formula(paste("train$Venta_uni_hoy ~ ",paste(fmla_c,collapse = "+")))
 
-fmla_c_xgb = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
+#fmla_c_xgb = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
+fmla_c_xgb = c("B1","C1","D1","E1","G1");
 
 # with GLMNET:
 print("GLMNET")
@@ -2534,8 +2535,6 @@ x = as.matrix(df.train[,fmla_glmnet])
 y = as.matrix(train$Venta_uni_hoy)
 fit.lambda  = cv.glmnet(x,y)
 fit.train <- glmnet(x, y, family="gaussian", alpha=0, lambda=fit.lambda$lambda.1se)
-
-#fit.train <- glmnet(x, y, family="gaussian", alpha=0, lambda=NULL, nlambda=10)
 # predict on cv ...
 x = as.matrix(df.cv[,fmla_glmnet])
 pred_cv <- predict.glmnet(fit.train, x, type="link",s=fit.train$lambda[length(fit.train$lambda)])
@@ -2556,6 +2555,8 @@ if (VERBOSE == 1){
 }
 pred_cv_glmnet = pred_cv
 pred_test_glmnet = pred_test
+err_pred_cv_glmnet = err_pred_cv[[1]]
+err_pred_test_glmnet = err_pred_test[[1]]
 
 
 # with PENALIZED:
@@ -2581,6 +2582,9 @@ if (VERBOSE == 1){
 }
 pred_cv_penalized = pred_cv
 pred_test_penalized = pred_test
+err_pred_cv_penalized = err_pred_cv[[1]]
+err_pred_test_penalized = err_pred_test[[1]]
+
 
 # with GLM:
 print("GLM")
@@ -2605,6 +2609,8 @@ if (VERBOSE == 1){
 }
 pred_cv_glm = pred_cv
 pred_test_glm = pred_test
+err_pred_cv_glm = err_pred_cv[[1]]
+err_pred_test_glm = err_pred_test[[1]]
 
 
 # with SGD:
@@ -2634,6 +2640,8 @@ if (VERBOSE == 1){
 }
 pred_cv_sgd = pred_cv
 pred_test_sgd = pred_test
+err_pred_cv_sgd = err_pred_cv[[1]]
+err_pred_test_sgd = err_pred_test[[1]]
 
 
 # with XGBOOST:
@@ -2643,11 +2651,11 @@ dtrain <- xgb.DMatrix(data = as.matrix(df.train[fmla_c_xgb]), label=train$Venta_
 param <- list(  
   #objective           = "multi:softprob", num_class = 4,
   objective           = "reg:linear",
-  #booster             = "gbtree",
-  booster             = "gblinear",
+  booster             = "gbtree",
+  #booster             = "gblinear",
   base_score          = 0,
-  eta                 = 0.5, #0.02, # 0.06, #0.01,
-  max_depth           = 8, #changed from default of 8
+  eta                 = 0.01, #0.02, # 0.06, #0.01,
+  max_depth           = 4, #changed from default of 8
   subsample           = 0.7, #0.9, # 0.7
   colsample_bytree    = 0.7, # 0.7
   #num_parallel_tree   = 2,
@@ -2657,7 +2665,8 @@ param <- list(
 
   # eval_metric         = RMSE
 )
-fit.train = xgb.train(params=param,dtrain,nrounds=300,print.every.n = 2,maximize = FALSE )
+set.seed(100)
+fit.train = xgb.train(params=param,dtrain,nrounds=400,print.every.n = 2,maximize = FALSE )
 # predict on cv ...
 pred_cv = predict(fit.train, as.matrix(df.cv[fmla_c_xgb]),missing = NaN)
 pred_cv[which(pred_cv<0)] = 0
@@ -2676,6 +2685,18 @@ if (VERBOSE == 1){
 }
 pred_cv_xgb = pred_cv
 pred_test_xgb = pred_test
+err_pred_cv_xgb = err_pred_cv[[1]]
+err_pred_test_xgb = err_pred_test[[1]]
+
+
+# Average the predictions:
+
+
+
+
+
+
+
 
 
 #######################################

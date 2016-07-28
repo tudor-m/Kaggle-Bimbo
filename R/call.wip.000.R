@@ -8,7 +8,7 @@ library(data.table)
 
 VALIDATION = 4
 VERBOSE = 0
-DATA_RELOAD = 1
+DATA_RELOAD = 0
 wip.R = "wip.000.R"
 
 jBinCv = 3;
@@ -18,9 +18,9 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4) # FULL CV
   train.bak <- 
     fread('../data/train.csv', header=TRUE,
           select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
-  trainWeeks = c(3,4,5,6,7,8)
-  cvWeeks = c(9)
-  testWeeks = c(9)
+  trainWeeks = c(3,4,5,6,7)
+  cvWeeks = c(8)
+  testWeeks = c(8)
   
   trainData <- train.bak[which(train.bak$Semana %in% trainWeeks)]
   cvData <- train.bak[which(train.bak$Semana %in% cvWeeks)]
@@ -33,7 +33,7 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4) # FULL CV
   }
   
   nCli = 50000;
-  if (VALIDATION == 4) nCli = 10000;
+  if (VALIDATION == 4) nCli = 5000;
   nu_Cl = length(unique(trainData$Cliente_ID))
   n_Cl = length(trainData$Cliente_ID)
 
