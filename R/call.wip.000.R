@@ -29,6 +29,7 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4) # FULL CV
   trainData$id <- 1:nrow(trainData)
   cvData$id <- 1:nrow(cvData)
   testData$id <- 1:nrow(testData)
+  DATA_RELOAD = 0
   }
   
   nCli = 50000;
@@ -40,6 +41,7 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4) # FULL CV
   total_pred_test$val = -1
   if (VALIDATION == 3) ssq = 1:ceiling(nu_Cl/nCli)
   if (VALIDATION == 2) ssq = jBinCv
+  if (VALIDATION == 4) ssq = jBinCv
   for (jBin in ssq)
   {
     jMin = (jBin-1)*nCli+1

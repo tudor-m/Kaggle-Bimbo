@@ -2639,13 +2639,27 @@ pred_test_sgd = pred_test
 # with XGBOOST:
 print("XGB")
 # fit on train ...
-data(df.train,package='xgboost')
-dtrain = xgb.DMatrix(df.train,label = train$Venta_uni_hoy)
-fit.train = xgb.cv(dtrain,nfold=10)
+dtrain <- xgb.DMatrix(data = as.matrix(df.train[fmla_c_xgb]), label=train$Venta_uni_hoy)
+param <- list(  
+  #objective           = "multi:softprob", num_class = 4,
+  objective           = "reg:linear",
+  #booster             = "gbtree",
+  booster             = "gblinear",
+  base_score          = 0,
+  eta                 = 0.5, #0.02, # 0.06, #0.01,
+  max_depth           = 8, #changed from default of 8
+  subsample           = 0.7, #0.9, # 0.7
+  colsample_bytree    = 0.7, # 0.7
+  #num_parallel_tree   = 2,
+  alpha = 0.001,    #0.0001,
+  lambda = 0.05,
+  min_child_weight    = 1
+
+  # eval_metric         = RMSE
+)
+fit.train = xgb.train(params=param,dtrain,nrounds=300,print.every.n = 2,maximize = FALSE )
 # predict on cv ...
-x = as.matrix(df.cv[c("B","C","D","E","B1","C1","D1","E1","G1")]);
-x = cbind(1+0*x[,1],x)
-pred_cv = predict(fit.train,x)
+pred_cv = predict(fit.train, as.matrix(df.cv[fmla_c_xgb]),missing = NaN)
 pred_cv[which(pred_cv<0)] = 0
 err_pred_cv = errMeasure(pred_cv,cv$Venta_uni_hoy)
 if (VERBOSE == 1){
@@ -2653,17 +2667,15 @@ if (VERBOSE == 1){
   print(err_pred_cv[[1]])
 }
 # predict on test ...
-x = as.matrix(df.test[c("B","C","D","E","B1","C1","D1","E1","G1")]);
-x = cbind(1+0*x[,1],x)
-pred_test = predict(fit.train,x)
+pred_test = predict(fit.train, as.matrix(df.test[fmla_c_xgb]),missing = NaN)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure(pred_test,test$Venta_uni_hoy)
 if (VERBOSE == 1){
   print("Venta_uni_hoy, test:")
   print(err_pred_test[[1]])
 }
-pred_cv_sgd = pred_cv
-pred_test_sgd = pred_test
+pred_cv_xgb = pred_cv
+pred_test_xgb = pred_test
 
 
 #######################################

@@ -56,7 +56,7 @@ for (ii in 1:nv)
   clf <- xgb.train(
     params              = param,
     data                = dtrain, 
-    nrounds             = 5000, #300, #280, #125, #250, # changed from 300
+    nrounds             = 5000 #300, #280, #125, #250, # changed from 300
     verbose             = 0,
     print.every.n       = 200,
     early.stop.round    = 2000,
