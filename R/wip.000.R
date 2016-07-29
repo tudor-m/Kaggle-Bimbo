@@ -2711,15 +2711,15 @@ fmla_string2 = "A+B+C+D+E+F+AB+I(A^2)+AMAX+BMAX+CMAX+DMAX+I(DMAX^0.5)+I(AMAX^2)+
 fmla_string1 = "AA1+AB1+A1+B1+C1+D1+E1+F1+G1+H1+I1+J1+K1+I(AA1MAX^2)+AB1MAX+A1MAX+B1MAX+C1MAX+D1MAX+E1MAX+F1MAX+G1MAX+H1MAX+I1MAX+J1MAX+K1MAX"
 fmla_string = fmla_string4
 
-fmla_glmnet = c("B1","C1","D1","E1","G1")
+fmla_glmnet = c("B","C","D","E","G","BMAX","CMAX","DMAX","EMAX","GMAX")
 
-fmla_c_penalized = c("B1","C1","D1","E1","G1");
+fmla_c_penalized = c("B","C","D","E","G");
 # this is good as well: fmla_c_penalized = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
 fmla_c = fmla_c_penalized
 fmla_penalized = as.formula(paste("train$Demanda_uni_equil ~ ",paste(fmla_c,collapse = "+")))
 
 #fmla_c_xgb = c("A1","B1","C1","D1","E1","F1","G1","H1","I1","J1","K1","A1MAX","B1MAX","C1MAX","D1MAX","E1MAX","G1MAX");
-fmla_c_xgb = c("B1","C1","D1","E1","G1");
+fmla_c_xgb = c("B","C","D","E","G");
 
 # with GLMNET:
 print("GLMNET")
