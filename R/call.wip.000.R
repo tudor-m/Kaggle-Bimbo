@@ -8,7 +8,7 @@ library(data.table)
 
 VALIDATION = 4
 VERBOSE = 0
-DATA_RELOAD = 0
+DATA_RELOAD = 1
 wip.R = "wip.000.R"
 
 jBinCv = 3;
