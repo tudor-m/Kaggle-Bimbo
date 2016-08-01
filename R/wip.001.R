@@ -57,28 +57,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 ##s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -96,28 +96,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 ##s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 
@@ -136,19 +136,19 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 #idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
@@ -157,9 +157,9 @@ s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 ##s_feat_test[idxna2,]$V1 = bk
 
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -177,28 +177,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 ##s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -216,28 +216,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 ##s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -255,28 +255,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -294,28 +294,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -333,28 +333,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -372,28 +372,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -411,29 +411,29 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -451,28 +451,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -490,28 +490,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -529,28 +529,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 ##s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -569,28 +569,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -609,28 +609,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -649,28 +649,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 
@@ -689,28 +689,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -728,28 +728,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -767,28 +767,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -806,28 +806,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -845,29 +845,29 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -885,28 +885,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -924,28 +924,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -963,28 +963,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1002,28 +1002,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1041,28 +1041,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1080,28 +1080,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1119,28 +1119,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1158,28 +1158,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1197,28 +1197,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1236,28 +1236,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1275,28 +1275,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1314,28 +1314,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1353,28 +1353,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1392,28 +1392,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1431,28 +1431,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1470,29 +1470,29 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(c(class_name," error: ",s_err_test[[1]]))
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(c(class_name," error: ",s_err_test))
 #######################################
 
 #######################################
@@ -1510,28 +1510,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1549,28 +1549,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1588,28 +1588,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 
@@ -1628,28 +1628,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1667,28 +1667,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1706,28 +1706,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1745,28 +1745,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1784,28 +1784,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1823,28 +1823,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1862,29 +1862,29 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1902,28 +1902,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 
@@ -1942,28 +1942,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -1982,28 +1982,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2022,28 +2022,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2062,28 +2062,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 
@@ -2102,28 +2102,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2141,28 +2141,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2180,28 +2180,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2219,28 +2219,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2258,29 +2258,29 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2298,28 +2298,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2337,28 +2337,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2376,28 +2376,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2415,28 +2415,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2454,28 +2454,28 @@ s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna = which(is.na(s_feat_cv$V1))
 #s_feat_cv[idxna,]$V1 = bk
 
-s_err_train = errMeasure(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure(s_feat_cv$V1,cv$Demanda_uni_equil)
+s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
+s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
 
 if (VERBOSE == 1)
 {
-  print(s_err_train[[1]])
-  print(s_err_cv[[1]])
+  print(s_err_train)
+  print(s_err_cv)
 }
 
 s_feat_train_all[[class_name]] = s_feat_train$V1
 s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train[[1]]
-s_err_cv_all[[class_name]] = s_err_cv[[1]]
+s_err_train_all[[class_name]] = s_err_train
+s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
 idxna2 = which(is.na(s_feat_test$V1))
 #s_feat_test[idxna2,]$V1 = bk
 s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test[[1]]
-if (VERBOSE==1) print(s_err_test[[1]])
+s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
+s_err_test_all[[class_name]] = s_err_test
+if (VERBOSE==1) print(s_err_test)
 #######################################
 
 #######################################
@@ -2483,9 +2483,9 @@ if (VERBOSE==1) print(s_err_test[[1]])
 lbl = names(s_feat_list_all)
 if (VERBOSE == 1)
 {
-  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_train_all[[l]][1]))) # features and train errors
-  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_cv_all[[l]][1]))) # features and test errors
-  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_test_all[[l]][1]))) # features and test errors
+  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_train_all[[l]]))) # features and train errors
+  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_cv_all[[l]]))) # features and test errors
+  for (l in lbl) print(c(l,s_feat_list_all[[l]],unlist(s_err_test_all[[l]]))) # features and test errors
 }
 
 #######################################

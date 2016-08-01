@@ -1,4 +1,6 @@
 library(moments)
+library()
+
 errMeasure <- function (vPred, vTarget)
 {
   if (length(vPred) != length(vTarget))
@@ -8,6 +10,30 @@ errMeasure <- function (vPred, vTarget)
   s12 = (s1-s2)^2
   return(list(sqrt(mean(s12,na.rm = TRUE)),(s1-s2),s12))
 }
+
+errMeasure3 <- function (vPred, vTarget)
+{
+  if (length(vPred) != length(vTarget))
+    return(-1);
+  s12 = (vPred-vTarget)^2
+  return(sqrt(mean(s12,na.rm = TRUE)))
+}
+
+
+saveDataT <- function(object,data.base.name,object.name)
+{
+  if (FALSE == dir.exists(paste("Rdatabase//",data.base.name,sep = "")))
+    dir.create(path = paste("Rdatabase//",data.base.name,sep = ""),recursive = TRUE)
+  saveRDS(object, file = paste("Rdatabase//",data.base.name,"//",object.name,".rds",sep = ""))
+}
+
+getDataT <- function(data.base.name,object.name)
+{
+  object = readRDS(file = paste("Rdatabase//",data.base.name,"//",object.name,".rds",sep = ""))
+} 
+  
+  
+  
 
 errMeasure2 <- function (vPred, vTarget)
 {

@@ -5,7 +5,9 @@ library(data.table)
 # 2 - CV with a small set
 # 3 - CV in a loop
 # 4 - mini Validation
-# 5 - CV with one cluster
+# 5.1 - Global Validation: Train(semana 3-7), CV(8), Test(9)
+# 5.2 - Global Validation: Train(semana 3-8), Test(9)
+# 5.3 - Submissions:       Train (3-9), Test(10)
 
 VALIDATION = 5
 VERBOSE = 0
@@ -13,7 +15,7 @@ DATA_RELOAD = 1
 wip.R = "wip.000.R"
 
 jBinCv = 1;
-if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4 | VALIDATION == 5) # FULL CV
+if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4 | VALIDATION == 5.1 | VALIDATION = 5.2) # FULL CV
 {
   if (DATA_RELOAD == 1) {
   train.bak <- 
@@ -22,6 +24,20 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4 | VALIDATION == 5) # FUL
   trainWeeks = c(3,4,5,6,7,8)
   cvWeeks = c(9)
   testWeeks = c(9)
+  
+  
+  if (VALIDATION == 5.1)
+  {
+    trainWeeks = c(3,4,5,6,7,8)
+    cvWeeks = c(9)
+    testWeeks = c(9)
+  }
+  if (VALIDATION == 5.2)
+  {
+    trainWeeks = c(3,4,5,6,7,8)
+    cvWeeks = c(9)
+    testWeeks = c(9)
+  }
   
   nrow.train.bak = nrow(train.bak)
   clients.train.bak = unique(train.bak$Cliente_ID)
@@ -43,15 +59,15 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4 | VALIDATION == 5) # FUL
   nu_Cl = length(unique(trainData$Cliente_ID))
   n_Cl = length(trainData$Cliente_ID)
 
-    if (VALIDATION == 4) nCli = 5000;
-  if (VALIDATION == 5) nCli = n_Cl;
+  if (VALIDATION == 4) nCli = 5000;
+  if (VALIDATION == 5.1 | VALIDATION == 5.2) nCli = n_Cl;
 
   total_pred_test = data.frame(id=testData$id) # this is where the prediction will be collected
   total_pred_test$val = -1
   if (VALIDATION == 3) ssq = 1:ceiling(nu_Cl/nCli)
   if (VALIDATION == 2) ssq = jBinCv
   if (VALIDATION == 4) ssq = jBinCv
-  if (VALIDATION == 5) ssq = 1
+  if (VALIDATION == 5.1 | VALIDATION == 5.2) ssq = 1
   for (jBin in ssq)
   {
     jMin = (jBin-1)*nCli+1
@@ -69,7 +85,7 @@ if (VALIDATION == 3 | VALIDATION == 2 | VALIDATION == 4 | VALIDATION == 5) # FUL
     test     = testData[idxTest,]
 
     print(c("jBin: ",jBin))
-    if (VALIDATION == 5) VERBOSE = 1
+    if (VALIDATION == 5.1 | VALIDATION == 5.2) VERBOSE = 1
     if (VALIDATION == 4) VERBOSE = 1
     if (VALIDATION == 2) VERBOSE = 1
     if (VALIDATION == 3) VERBOSE = 0
