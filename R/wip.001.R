@@ -24,23 +24,16 @@ s_fct_max <- function(x)
 {
   max(x)
 }
-subName = ".wip.000.csv"
+subName = ".wip.001.csv"
 
 
 #######################################
 #   Target-based learners:
 #######################################
 
-estRet = list()
-estRetE = list()
-s_feat_train_all = list()
-s_feat_cv_all = list()
-s_feat_test_all = list()
-s_err_train_all = list()
-s_err_cv_all = list()
-s_err_test_all = list()
 s_feat_list_all = list()
-
+s_feat_train_all = list()
+s_feat_test_all = list()
 
 #######################################
 class_name   = "AA"
@@ -50,35 +43,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-##bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-##s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -89,35 +66,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-##s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 
@@ -129,37 +90,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-##bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-#idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
 
-#idxna2 = which(is.na(s_feat_test$V1))
-##s_feat_test[idxna2,]$V1 = bk
-
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -170,35 +113,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-##s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -209,35 +136,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-##s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -248,35 +159,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -287,35 +182,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -326,35 +205,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -365,35 +228,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -404,36 +251,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -444,35 +274,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -483,35 +297,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -522,35 +320,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-##s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -562,35 +344,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -602,35 +368,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -642,35 +392,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 
@@ -682,35 +416,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -721,35 +439,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -760,35 +462,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -799,35 +485,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -838,36 +508,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -878,35 +531,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -914,38 +551,19 @@ class_name   = "H1"
 s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
 s_fct = s_fct_mean
 
-c_feat = c(unlist(s_feat_list))
-s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
-
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -956,35 +574,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -995,35 +597,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1034,35 +620,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1073,35 +643,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1112,35 +666,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1151,35 +689,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1190,35 +712,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1229,35 +735,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1268,35 +758,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1307,35 +781,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1346,35 +804,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1385,35 +827,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1424,35 +850,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1463,36 +873,19 @@ s_fct = s_fct_mean
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(c(class_name," error: ",s_err_test))
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1503,35 +896,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1542,35 +919,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1581,35 +942,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 
@@ -1621,35 +966,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1660,35 +989,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1699,35 +1012,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1738,35 +1035,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1777,35 +1058,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1816,35 +1081,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1855,36 +1104,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1895,35 +1127,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 
@@ -1935,35 +1151,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -1975,35 +1175,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2015,35 +1199,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2055,35 +1223,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 
@@ -2095,35 +1247,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2134,35 +1270,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2173,35 +1293,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2212,35 +1316,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2251,36 +1339,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2291,35 +1362,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2330,35 +1385,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2369,35 +1408,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2408,35 +1431,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
@@ -2447,35 +1454,19 @@ s_fct = s_fct_max
 c_feat = c(unlist(s_feat_list))
 s_class <- train[,list(s_fct(Venta_uni_hoy),.N),by=c_feat]
 
-s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-s_feat_cv <- merge(cv,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-
-#bk = 0.4*mean(s_feat_cv$V1,na.rm = TRUE)
-idxna = which(is.na(s_feat_cv$V1))
-#s_feat_cv[idxna,]$V1 = bk
-
-s_err_train = errMeasure3(s_feat_train$V1,train$Demanda_uni_equil)
-s_err_cv = errMeasure3(s_feat_cv$V1,cv$Demanda_uni_equil)
-
-if (VERBOSE == 1)
-{
-  print(s_err_train)
-  print(s_err_cv)
-}
-
-s_feat_train_all[[class_name]] = s_feat_train$V1
-s_feat_cv_all[[class_name]] = s_feat_cv$V1
-s_err_train_all[[class_name]] = s_err_train
-s_err_cv_all[[class_name]] = s_err_cv
 s_feat_list_all[[class_name]] = unlist(s_feat_list)
 
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
 s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
-idxna2 = which(is.na(s_feat_test$V1))
-#s_feat_test[idxna2,]$V1 = bk
-s_feat_test_all[[class_name]] = s_feat_test$V1
-s_err_test = errMeasure3(s_feat_test$V1,test$Demanda_uni_equil)
-s_err_test_all[[class_name]] = s_err_test
-if (VERBOSE==1) print(s_err_test)
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
 #######################################
 
 #######################################
