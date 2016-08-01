@@ -1,6 +1,8 @@
 library(data.table)
 
 # CV1 dataset
+DATABASE = "CV-1"
+
 train.bak <- 
   fread('../data/train.csv', header=TRUE,
         select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
@@ -31,9 +33,8 @@ remove(testData)
 gc()
 
 
-DATABASE = "CV-1"
-
-source(wip.001.R)
+VERBOSE = 1
+source("wip.001.R")
 
 
 ##############################################

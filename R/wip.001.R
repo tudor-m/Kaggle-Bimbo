@@ -56,6 +56,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -79,6 +80,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 
@@ -103,6 +105,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -126,6 +129,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -149,6 +153,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -172,6 +177,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -195,6 +201,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -218,6 +225,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -241,6 +249,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -264,6 +273,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -287,6 +297,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -310,6 +321,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -333,6 +345,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -357,6 +370,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -381,6 +395,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -405,6 +420,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 
@@ -429,6 +445,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -452,6 +469,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -475,6 +493,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -498,6 +517,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -521,6 +541,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -544,6 +565,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -564,6 +586,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -587,6 +610,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -610,6 +634,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -633,6 +658,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -656,6 +682,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -679,6 +706,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -702,6 +730,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -725,6 +754,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -748,6 +778,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -771,6 +802,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -794,6 +826,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -817,6 +850,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -840,6 +874,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -863,6 +898,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -886,6 +922,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -909,6 +946,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -932,6 +970,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -955,6 +994,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 
@@ -979,6 +1019,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1002,6 +1043,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1025,6 +1067,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1048,6 +1091,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1071,6 +1115,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1094,6 +1139,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1117,6 +1163,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1140,6 +1187,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 
@@ -1164,6 +1212,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1188,6 +1237,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1212,6 +1262,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1236,6 +1287,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 
@@ -1260,6 +1312,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1283,6 +1336,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1306,6 +1360,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1329,6 +1384,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1352,6 +1408,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1375,6 +1432,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1398,6 +1456,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1421,6 +1480,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1444,6 +1504,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
@@ -1467,6 +1528,7 @@ saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep="
 remove(s_feat_train_this)
 remove(s_feat_test_this)
 gc()
+print(paste(class_name,"done"))
 #######################################
 
 #######################################
