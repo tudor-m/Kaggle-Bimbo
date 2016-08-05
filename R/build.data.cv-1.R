@@ -16,7 +16,7 @@ agencies.train.bak = unique(train.bak$Agencia_ID)
 canals.train.bak = unique(train.bak$Canal_ID)
 routes.train.bak = unique(train.bak$Ruta_SAK)
 
-train.bak$Demanda_uni_equil = log1p(train.bak$Demanda_uni_equil)
+#train.bak$Demanda_uni_equil = log1p(train.bak$Demanda_uni_equil)
 
 trainData <- train.bak[which(train.bak$Semana %in% trainWeeks)]
 testData <- train.bak[which(train.bak$Semana %in% testWeeks)]

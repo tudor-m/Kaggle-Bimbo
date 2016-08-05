@@ -15,7 +15,7 @@ errMeasure3 <- function (vPred, vTarget)
 {
   if (length(vPred) != length(vTarget))
     return(-1);
-  s12 = (vPred-vTarget)^2
+  s12 = (log1p(vPred)-log1p(vTarget))^2
   return(sqrt(mean(s12,na.rm = TRUE)))
 }
 

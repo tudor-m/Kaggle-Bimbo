@@ -11,3 +11,10 @@ errMeasure(cv$Venta_uni_hoy,0.25*df.cv$B+0.05*df.cv$C+0.05*df.cv$D1+0.45*df.cv$G
 errMeasure(test$Venta_uni_hoy,0.25*df.test$B+0.05*df.test$C+0.05*df.test$D1+0.45*df.test$G1)[[1]]
 
 
+source("build.data.cv-1.R")
+source("build.data.cv-2.R")
+
+tmp.t = getDataT("CV-2","train")
+tmp.t$Demanda_uni_equil = expm1(tmp.t$Demanda_uni_equil)
+saveDataT(tmp.t,"CV-2","train")
+remove(tmp.t)

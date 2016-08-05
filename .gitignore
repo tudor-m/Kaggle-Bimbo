@@ -4,3 +4,6 @@
 data/cliente_tabla.csv
 data/producto_tabla.csv
 *.csv
+*.rds
+.Rproj.*
+~*
