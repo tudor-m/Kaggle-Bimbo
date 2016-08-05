@@ -18,7 +18,7 @@ VERBOSE = 1
 DATA_SET = "CV-1"
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
-nCli = 50000
+nCli = 5000
 # Randomize the Clients:
 all_Cli = unique(train.bak$Cliente_ID)
 num_Cli = length(all_Cli)
@@ -28,6 +28,7 @@ rnd_Cli = sample(all_Cli,num_Cli)
 # All sequence: ssq = 1:ceiling(num_Cli/nCli)
 # Just a sample: ssq = 1
 ssq = 3:10
+ssq = 2
 
 for (jBin in ssq)
 {

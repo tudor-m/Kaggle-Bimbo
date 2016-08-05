@@ -3,24 +3,30 @@ library(sgd)
 library(penalized)
 library(xgboost)
 library(glmnet)
-
+library(Ckmeans.1d.dp)
 # DATA_SET = "CV-1"
 # Cluster - defined by rows to be assembled:
 #idx = c(1:10000) #e.g.
 
 print(DATA_SET)
 # PREDICT Demanda_uni_equil:
-fmla_c_glmnet = c("AA","AA1")
-fmla_c_penalized = c("AA","AA1")
-fmla_c_xgb = c("AA","AA1")
-fmla_c_sgd = c("AA","AA1")
-fmla_c_glm = c("AA","AA1")
+fmla_c_glmnet = c("AA","AB")
+fmla_c_penalized = c("AA","AB")
+fmla_c_xgb = c("AA","AB")
+fmla_c_sgd = c("AA","AB")
+fmla_c_glm = c("AA","AB")
 
-fmla_c_glmnet = c("AA","AB","AA1","AB1","B","C","D","E","G","BMAX","CMAX","DMAX","EMAX","GMAX")
-fmla_c_penalized =  c("AA","AB","AA1","AB1","B","C","D","E","G")
-fmla_c_xgb = c("AA","AB","AA1","AB1","B","C","D","E","G")
-fmla_c_sgd = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1")
-fmla_c_glm = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1")
+fmla_c_glmnet = c("AA","AB","AA1","AB1","B","C","D","E","G","BMAX","CMAX","DMAX","EMAX","GMAX","ABMAX")
+fmla_c_penalized =  c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
+fmla_c_xgb = c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
+fmla_c_sgd = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1","ABMAX")
+fmla_c_glm = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1","ABMAX")
+
+fmla_c_glmnet =     c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
+fmla_c_penalized =  c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
+fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
+fmla_c_sgd =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
+fmla_c_glm =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 
 # with GLMNET:
 print("GLMNET")
@@ -163,25 +169,40 @@ df.test$id <- NULL
 df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
 # FIT on train ...
 dtrain <- xgb.DMatrix(data = as.matrix(df.train), label=df.train.target)
+log1pEval <- function(preds, dtrain)
+{
+  labels = getinfo(dtrain, "label")
+  preds[which(preds<0)] = 0
+  logs = (log1p(preds)-log1p(labels))^2
+  err = as.numeric(sqrt(mean(logs,na.rm = TRUE)))
+  return(list(metric="error",value=err))
+}
 param <- list(  
   #objective           = "multi:softprob", num_class = 4,
   objective           = "reg:linear",
   booster             = "gbtree",
   #booster             = "gblinear",
   base_score          = 0,
-  eta                 = 0.01, #0.02, # 0.06, #0.01,
-  max_depth           = 4, #changed from default of 8
-  subsample           = 0.7, #0.9, # 0.7
-  colsample_bytree    = 0.7, # 0.7
+  eta                 = 0.3, #0.02, # 0.06, #0.01,
+  max_depth           = 2, #changed from default of 8
+  subsample           = 0.8, #0.9, # 0.7
+  colsample_bytree    = 0.8, # 0.7
   #num_parallel_tree   = 2,
+  nthread = 4,
   alpha = 0.001,    #0.0001,
   lambda = 0.05,
-  min_child_weight    = 1
-  
-  # eval_metric         = RMSE
+  gamma = 0,
+  scale_pos_weight = 1,
+  min_child_weight    = 1,
+  eval_metric         = log1pEval
 )
 set.seed(100)
-fit.train = xgb.train(params=param,dtrain,nrounds=400,print.every.n = 2,maximize = FALSE )
+watchlist <- list(train = dtrain)
+
+fit.cv.res = xgb.cv(param, dtrain,nrounds = 20,nfold = 5,metrics = "error",showsd = FALSE)
+xgb.plot.importance(xgb.importance(model=fit.train))
+
+fit.train = xgb.train(params=param,dtrain,nrounds=10,print.every.n = 2,maximize = FALSE,watchlist)
 # PREDICT on test ...
 pred_test = predict(fit.train, as.matrix(df.test),missing = NaN)
 pred_test[which(pred_test<0)] = 0
@@ -200,9 +221,19 @@ err_pred_test_xgb = err_pred_test
 # Average the predictions:
 err_pred_test_all = c(err_pred_test_glm,err_pred_test_glmnet,err_pred_test_penalized,err_pred_test_sgd,err_pred_test_xgb)
 pred_test_all = cbind(pred_test_glm,pred_test_glmnet,pred_test_penalized,pred_test_sgd,pred_test_xgb)
-coef_pred_test_all = c(1,1,1,1,1)
+
+# Fix the NAs:
+pred_test_all.bak = pred_test_all
+
+pred_test_all = pred_test_all.bak
+for (j in 1:4)
+{
+  idx_na = which(is.na(pred_test_all[,j]))
+  pred_test_all[idx_na,j] = 1.6*pred_test_all[idx_na,5]
+}
 
 print(err_pred_test_all)
+coef_pred_test_all = c(1,1,1,1,1)
 mean_pred_test = rowSums((coef_pred_test_all * pred_test_all))/sum(coef_pred_test_all)
 er3 = errMeasure3(mean_pred_test,df.test.target)
 print(c("my average pred:",er3))
