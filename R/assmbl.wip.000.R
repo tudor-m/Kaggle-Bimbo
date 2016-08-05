@@ -182,27 +182,30 @@ param <- list(
   objective           = "reg:linear",
   booster             = "gbtree",
   #booster             = "gblinear",
-  base_score          = 0,
-  eta                 = 0.3, #0.02, # 0.06, #0.01,
-  max_depth           = 2, #changed from default of 8
+  base_score          = 0.5,
+  eta                 = 0.1, #0.02, # 0.06, #0.01,
+  max_depth           = 3, #changed from default of 8
   subsample           = 0.8, #0.9, # 0.7
   colsample_bytree    = 0.8, # 0.7
   #num_parallel_tree   = 2,
   nthread = 4,
-  alpha = 0.001,    #0.0001,
-  lambda = 0.05,
-  gamma = 0,
+  alpha = 0,    #0.0001,
+  lambda = 0,
+  gamma = 2,
   scale_pos_weight = 1,
   min_child_weight    = 1,
-  eval_metric         = log1pEval
+  eval_metric         = log1pEval,
+  maximize = FALSE
 )
-set.seed(100)
+
 watchlist <- list(train = dtrain)
 
-fit.cv.res = xgb.cv(param, dtrain,nrounds = 20,nfold = 5,metrics = "error",showsd = FALSE)
+set.seed(100)
+fit.cv.res = xgb.cv(param, dtrain,nrounds = 40,nfold = 5,metrics = "error",showsd = FALSE)
 xgb.plot.importance(xgb.importance(model=fit.train))
 
-fit.train = xgb.train(params=param,dtrain,nrounds=10,print.every.n = 2,maximize = FALSE,watchlist)
+set.seed(100)
+fit.train = xgb.train(params=param,dtrain,nrounds=40,print.every.n = 2,maximize = FALSE,watchlist)
 # PREDICT on test ...
 pred_test = predict(fit.train, as.matrix(df.test),missing = NaN)
 pred_test[which(pred_test<0)] = 0
