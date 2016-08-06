@@ -203,10 +203,11 @@ watchlist <- list(train = dtrain)
 nround = 100
 set.seed(100)
 fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",showsd = FALSE,prediction = TRUE)
-xgb.plot.importance(xgb.importance(model=fit.train))
+
 
 set.seed(100)
 fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)
+xgb.plot.importance(xgb.importance(model=fit.train))
 # PREDICT on test ...
 pred_test = predict(fit.train, as.matrix(df.test),missing = NaN)
 pred_test[which(pred_test<0)] = 0
