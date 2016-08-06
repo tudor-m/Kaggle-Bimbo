@@ -201,9 +201,10 @@ param <- list(
 
 watchlist <- list(train = dtrain)
 nround = 100
+if (1==0) {
 set.seed(100)
 fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",showsd = FALSE,prediction = TRUE)
-
+}
 
 set.seed(100)
 fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)

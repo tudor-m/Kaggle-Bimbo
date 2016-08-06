@@ -7,3 +7,4 @@ data/producto_tabla.csv
 *.rds
 .Rproj.*
 ~*
+*.swp

@@ -18,7 +18,7 @@ VERBOSE = 1
 DATA_SET = "CV-1"
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
-nCli = 5000
+nCli = 50000
 total_pred_test = as.data.frame(0*cbind(1:nrow(test.bak),1:nrow(test.bak)))
 colnames(total_pred_test) = c("id","val")
 # Randomize the Clients:
