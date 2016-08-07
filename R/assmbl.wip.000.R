@@ -10,21 +10,11 @@ library(Ckmeans.1d.dp)
 
 print(DATA_SET)
 # PREDICT Demanda_uni_equil:
-fmla_c_glmnet = c("AA","AB")
-fmla_c_penalized = c("AA","AB")
-fmla_c_xgb = c("AA","AB")
-fmla_c_sgd = c("AA","AB")
-fmla_c_glm = c("AA","AB")
-
-fmla_c_glmnet = c("AA","AB","AA1","AB1","B","C","D","E","G","BMAX","CMAX","DMAX","EMAX","GMAX","ABMAX")
-fmla_c_penalized =  c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
-fmla_c_xgb = c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
-fmla_c_sgd = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1","ABMAX")
-fmla_c_glm = c("AA","AB","AA1","AB1","B","C","D","E","B1","C1","D1","E1","G1","ABMAX")
 
 fmla_c_glmnet =     c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_penalized =  c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
-fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
+#fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
+fmla_c_xgb =        c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
 fmla_c_sgd =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_glm =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 
@@ -169,6 +159,9 @@ df.test$id <- NULL
 df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
 # FIT on train ...
 dtrain <- xgb.DMatrix(data = as.matrix(df.train), label=df.train.target)
+dtest <- xgb.DMatrix(data = as.matrix(df.test), label=df.test.target, missing = NaN)
+watchlist <- list(train = dtrain, test = dtest)
+
 log1pEval <- function(preds, dtrain)
 {
   labels = getinfo(dtrain, "label")
@@ -178,29 +171,29 @@ log1pEval <- function(preds, dtrain)
   return(list(metric="error",value=err))
 }
 
+nround = 60
 param <- list(  
   #objective           = "multi:softprob", num_class = 4,
   objective           = "reg:linear",
   booster             = "gbtree",
   #booster             = "gblinear",
   base_score          = 0.5,
-  eta                 = 0.05, #0.02, # 0.06, #0.01,
+  eta                 = 0.15,#0.05, #0.02, # 0.06, #0.01,
   max_depth           = 2, #changed from default of 8
-  subsample           = 0.5, #0.9, # 0.7
-  colsample_bytree    = 0.5, # 0.7
+  subsample           = 0.8, #0.9, # 0.7
+  colsample_bytree    = 0.7, # 0.7
   #num_parallel_tree   = 2,
   nthread = 2,
   alpha = 0,    #0.0001,
   lambda = 0,
   gamma = 0,
   scale_pos_weight = 1,
-  min_child_weight    = 3, #2
+  min_child_weight    = 1, #2
   eval_metric         = log1pEval,
+  #eval_metric         = "rmse",
   maximize = FALSE
 )
 
-watchlist <- list(train = dtrain)
-nround = 100
 if (1==0) {
 set.seed(100)
 fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",showsd = FALSE,prediction = TRUE)
@@ -209,6 +202,7 @@ fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",s
 set.seed(100)
 fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)
 xgb.plot.importance(xgb.importance(model=fit.train))
+head(xgb.importance(model=fit.train))
 # PREDICT on test ...
 pred_test = predict(fit.train, as.matrix(df.test),missing = NaN)
 pred_test[which(pred_test<0)] = 0

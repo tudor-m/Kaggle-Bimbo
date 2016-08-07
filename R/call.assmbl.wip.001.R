@@ -28,13 +28,14 @@ set.seed(2300)
 rnd_Cli = sample(all_Cli,num_Cli)
 # Split Clients in approx equal clusters of less than nCli Clients
 # All sequence: 
-ssq = 1:ceiling(num_Cli/nCli)
+# ssq = 1:ceiling(num_Cli/nCli)
 # Just a sample: ssq = 1
 # ssq = 3:10
 # ssq = 2
-
+ssq = 7
 for (jBin in ssq)
 {
+  print(c(jBin," Started"))
   jMin = (jBin-1)*nCli+1
   jMax = min(jBin*nCli,num_Cli)
   clusterCli = rnd_Cli[jMin:jMax]
