@@ -36,6 +36,9 @@ s_feat_train_all = list()
 s_feat_test_all = list()
 
 #######################################
+saveDataT(train,DATABASE,"train")
+saveDataT(test,DATABASE,"test")
+#######################################
 class_name   = "AA"
 s_feat_list = list("Cliente_ID")
 s_fct = s_fct_mean
