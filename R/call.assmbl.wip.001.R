@@ -29,14 +29,14 @@ num_Cli = length(all_Cli)
 set.seed(2300)
 rnd_Cli = sample(all_Cli,num_Cli)
 # All sequence: 
-# ssq = 1:ceiling(num_Cli/nCli)
+ssq = 1:ceiling(num_Cli/nCli)
 # Just a sample: ssq = 1
 # ssq = 3:10
 # ssq = 2
-ssq = 7
+# ssq = 7
 for (jBin in ssq)
 {
-  print(c("jBin ",jBin," out of ",ssq, " just Started"))
+  print(c("jBin ",jBin," out of ",length(ssq), " just Started ",timestamp()))
   jMin = (jBin-1)*nCli+1
   jMax = min(jBin*nCli,num_Cli)
   clusterCli = rnd_Cli[jMin:jMax]
@@ -47,7 +47,7 @@ for (jBin in ssq)
   train    = train.bak[idxTrain,]
   test     = test.bak[idxTest,]
 
-  source("assmbl.wip.000.R")
+  source("assmbl.wip.001.R")
 # TODO:  
 #  idx = which(total_pred_test$id %in% test$id)
 #  total_pred_test[idx,]$val = pred_test
@@ -56,7 +56,7 @@ for (jBin in ssq)
 
   total_pred_test[idxTest,]$id = test$id
   total_pred_test[idxTest,]$val = pred_test
-  
+  gc()
 }
 
 err_total = errMeasure3(total_pred_test$val,test.bak$Demanda_uni_equil)

@@ -200,7 +200,7 @@ fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",s
 }
 
 set.seed(100)
-fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)
+fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 10,maximize = FALSE,watchlist)
 xgb.plot.importance(xgb.importance(model=fit.train))
 head(xgb.importance(model=fit.train))
 # PREDICT on test ...
