@@ -8,3 +8,4 @@ data/producto_tabla.csv
 .Rproj.*
 ~*
 *.swp
+*.xls#
