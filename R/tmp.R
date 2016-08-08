@@ -18,3 +18,8 @@ tmp.t = getDataT("CV-2","train")
 tmp.t$Demanda_uni_equil = expm1(tmp.t$Demanda_uni_equil)
 saveDataT(tmp.t,"CV-2","train")
 remove(tmp.t)
+
+# Bigest errors, why did they happen?
+idx_big_err = (which(abs(mean_pred_test-df.test.target)>10))
+cbind(test[idx_big_err],mean_pred_test_combined[idx_big_err],pred_test_glm[idx_big_err],pred_test_sgd[idx_big_err],pred_test_penalized[idx_big_err],pred_test_xgb[idx_big_err],pred_test_glmnet[idx_big_err],mean_pred_test_p[idx_big_err],mean_pred_test[idx_big_err])[1:20,]
+pred_test_all[idx_big_err,][1:20,]

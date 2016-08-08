@@ -19,10 +19,17 @@ DATA_SET = "CV-1"
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
 
+pred_test_all_list = list()
+pred_test_all.bak_list = list()
+df.test.target_list = list()
+mean_pred_test_list = list()
+mean_pred_test_combined_list = list()
+
 # Split Clients in approx equal clusters of less than nCli Clients
 nCli = 50000
 total_pred_test = as.data.frame(0*cbind(1:nrow(test.bak),1:nrow(test.bak)))
 colnames(total_pred_test) = c("id","val")
+total_pred_test$id = test.bak$id+10
 # Randomize the Clients:
 all_Cli = unique(train.bak$Cliente_ID)
 num_Cli = length(all_Cli)
@@ -33,7 +40,8 @@ ssq = 1:ceiling(num_Cli/nCli)
 # Just a sample: ssq = 1
 # ssq = 3:10
 # ssq = 2
-# ssq = 7
+# ssq = c(1,5,8,9,16,18) # the worst
+#ssq = 9
 for (jBin in ssq)
 {
   print(c("jBin ",jBin," out of ",length(ssq), " just Started ",timestamp()))
@@ -56,6 +64,13 @@ for (jBin in ssq)
 
   total_pred_test[idxTest,]$id = test$id
   total_pred_test[idxTest,]$val = pred_test
+
+  pred_test_all.bak_list[[jBin]] = pred_test_all.bak
+  pred_test_all_list[[jBin]] = pred_test_all
+  df.test.target_list[[jBin]] = df.test.target
+  mean_pred_test_list[[jBin]] = mean_pred_test
+  mean_pred_test_combined_list[[jBin]] = mean_pred_test_combined
+  
   gc()
 }
 

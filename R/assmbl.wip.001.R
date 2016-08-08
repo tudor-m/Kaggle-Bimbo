@@ -233,7 +233,7 @@ for (j in 1:4)
 
 print(err_pred_test_all)
 coef_pred_test_all = c(1,1,1,1,0.5)
-mean_pred_test = rowSums((coef_pred_test_all * pred_test_all))/sum(coef_pred_test_all)
+mean_pred_test = rowSums(t(coef_pred_test_all*t(pred_test_all)))/sum(coef_pred_test_all)
 er3 = errMeasure3(mean_pred_test,df.test.target)
 print(c("my average pred:",er3))
 
@@ -259,5 +259,6 @@ sum(is.na(mean_pred_test_p))
 
 #######################################
 
-err_mean_combined = errMeasure3(0.5*mean_pred_test_p+0.5*mean_pred_test,df.test.target)
+mean_pred_test_combined = 0.5*mean_pred_test_p+0.5*mean_pred_test
+err_mean_combined = errMeasure3(mean_pred_test_combined,df.test.target)
 print(c("combined pred:",err_mean_combined))
