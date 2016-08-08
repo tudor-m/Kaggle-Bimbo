@@ -63,7 +63,7 @@ for (jBin in ssq)
 
 
   total_pred_test[idxTest,]$id = test$id
-  total_pred_test[idxTest,]$val = pred_test
+  total_pred_test[idxTest,]$val = mean_pred_test_combined
 
   pred_test_all.bak_list[[jBin]] = pred_test_all.bak
   pred_test_all_list[[jBin]] = pred_test_all
