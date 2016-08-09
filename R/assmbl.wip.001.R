@@ -12,11 +12,11 @@ print(DATA_SET)
 # PREDICT Demanda_uni_equil:
 
 fmla_c_glmnet =     c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
-fmla_c_glmnet =     c("AA","AB","F","G")
+fmla_c_glmnet =     c("AA","AB","F","G","AAw7","ABw7","Fw7","Gw7")
 fmla_c_penalized =  c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_penalized =     c("AA","AB","F","G")
 #fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
-fmla_c_xgb =        c("AA","AB","AA1","AB1","B","C","D","E","G","ABMAX")
+fmla_c_xgb =        c("AA","AB","F","G")
 fmla_c_sgd =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_sgd =     c("AA","AB","F","G")
 fmla_c_glm =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")

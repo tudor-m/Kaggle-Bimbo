@@ -15,7 +15,7 @@ VERBOSE = 1
 #DATA_RELOAD = 1
 #wip.R = "wip.000.R"
 
-DATA_SET = "CV-1"
+DATA_SET = "CV1_0"
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
 
@@ -26,7 +26,7 @@ mean_pred_test_list = list()
 mean_pred_test_combined_list = list()
 
 # Split Clients in approx equal clusters of less than nCli Clients
-nCli = 50000
+nCli = 10000
 total_pred_test = as.data.frame(0*cbind(1:nrow(test.bak),1:nrow(test.bak)))
 colnames(total_pred_test) = c("id","val")
 total_pred_test$id = test.bak$id+10
@@ -41,7 +41,7 @@ ssq = 1:ceiling(num_Cli/nCli)
 # ssq = 3:10
 # ssq = 2
 # ssq = c(1,5,8,9,16,18) # the worst
-#ssq = 9
+ssq = 3
 for (jBin in ssq)
 {
   print(c("jBin ",jBin," out of ",length(ssq), " just Started ",timestamp()))

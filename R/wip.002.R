@@ -697,5 +697,694 @@ print(paste(class_name,"done"))
 
 
 
+for (S in (5:7)) {
+train.swp = train
+train = train.swp[Semana==S,]
+
+#######################################
+class_name   = "AB"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "AA"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "AB"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+
+#######################################
+class_name   = "A"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID","Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "B"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Ruta_SAK","Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "C"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "D"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Ruta_SAK","Cliente_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "E"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "F"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Ruta_SAK")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "G"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "H"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "I"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "J"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Producto_ID","Canal_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "K"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID","Canal_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+
+#######################################
+class_name   = "AMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID","Producto_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "AAMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "ABMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Producto_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+
+#######################################
+class_name   = "BMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Ruta_SAK","Producto_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "CMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Producto_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "DMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Ruta_SAK","Cliente_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "EMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "FMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Ruta_SAK")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "GMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "HMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "IMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID","Cliente_ID","Producto_ID","Ruta_SAK","Canal_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "JMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Producto_ID","Canal_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+
+#######################################
+class_name   = "KMAX"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Cliente_ID","Canal_ID")
+s_fct = s_fct_max
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+train = train.swp
+remove(train.swp)
+gc()
+
+}
 
 
