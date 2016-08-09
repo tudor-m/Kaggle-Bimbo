@@ -141,6 +141,9 @@ if (VERBOSE == 1){
 pred_test_sgd = pred_test
 err_pred_test_sgd = err_pred_test
 
+for (l in c("AMAX","BMAX","AAMAX","ABMAX","AMAX","BMAX","CMAX","DMAX","EMAX","FMAX","GMAX","HMAX","IMAX","JMAX","KMAX")) {
+print(c("new letter: ",l))
+fmla_c_xgb =c(l,"C","F","G","J","K")
 
 # with XGBOOST:
 print("XGB")
@@ -200,7 +203,7 @@ fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",s
 }
 
 set.seed(100)
-fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)
+fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 10,maximize = FALSE,watchlist)
 xgb.plot.importance(xgb.importance(model=fit.train))
 head(xgb.importance(model=fit.train))
 # PREDICT on test ...
@@ -213,7 +216,10 @@ if (VERBOSE == 1){
 pred_test_xgb = pred_test
 err_pred_test_xgb = err_pred_test
 
+print(c(err_pred_test,paste(fmla_c_xgb,collapse = "")))
 
+
+}
 #######################################
 
 
