@@ -697,7 +697,7 @@ print(paste(class_name,"done"))
 
 
 
-for (S in (5:7)) {
+for (S in SemanaList) {
 train.swp = train
 train = train.swp[Semana==S,]
 
@@ -756,6 +756,56 @@ print(paste(class_name,"done"))
 class_name   = "AB"
 class_name   = paste(class_name,"w",S,collapse = "",sep="")
 s_feat_list = list("Producto_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "AC"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Agencia_ID")
+s_fct = s_fct_mean
+
+c_feat = c(unlist(s_feat_list))
+s_class <- train[,list(s_fct(Demanda_uni_equil),.N),by=c_feat]
+
+s_feat_list_all[[class_name]] = unlist(s_feat_list)
+
+s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_train_this = s_feat_train$V1
+
+s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
+s_feat_test_this = s_feat_test$V1
+
+saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+remove(s_feat_train_this)
+remove(s_feat_test_this)
+gc()
+print(paste(class_name,"done"))
+#######################################
+
+#######################################
+class_name   = "AD"
+class_name   = paste(class_name,"w",S,collapse = "",sep="")
+s_feat_list = list("Ruta_SAK")
 s_fct = s_fct_mean
 
 c_feat = c(unlist(s_feat_list))
@@ -1388,3 +1438,48 @@ gc()
 }
 
 
+
+
+
+
+
+
+
+
+for (S in SemanaList) {
+  train.swp = train
+  train = train.swp[Semana==S,]
+
+  feat_list = c("Cliente_ID","Producto_ID","Ruta_SAK","Agencia_ID")
+  class_name_list = c("NA","NB","NC","ND")
+  for (i in 1:length(feat_list)) {
+    #######################################
+    class_name   = class_name_list[i]
+    class_name   = paste(class_name,"w",S,collapse = "",sep="")
+    s_feat_list = list(feat_list[i])
+    
+    c_feat = c(unlist(s_feat_list))
+    s_class <- train[,.N,by=c_feat]
+    
+    s_feat_list_all[[class_name]] = unlist(s_feat_list)
+    
+    s_feat_train <- merge(train,s_class,by=c_feat,all.x=TRUE)[order(id),list(N)]
+    s_feat_train_this = s_feat_train$N
+    
+    s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(N)]
+    s_feat_test_this = s_feat_test$N
+    
+    saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
+    saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+    remove(s_feat_train_this)
+    remove(s_feat_test_this)
+    gc()
+    print(paste(class_name,"done"))
+    #######################################
+  }
+  
+  train = train.swp
+  remove(train.swp)
+  gc()
+  
+}

@@ -6,8 +6,8 @@ DATABASE = "CV-1"
 train.bak <- 
   fread('../data/train.csv', header=TRUE,
         select = c("Semana","Agencia_ID","Canal_ID","Ruta_SAK","Cliente_ID","Producto_ID","Venta_uni_hoy","Venta_hoy","Dev_uni_proxima","Dev_proxima","Demanda_uni_equil"))
-trainWeeks = c(3,4,5,6,7,8)
-testWeeks = c(9)
+trainWeeks = c(3,4,5,6,7)
+testWeeks = c(8)
 
 nrow.train.bak = nrow(train.bak)
 clients.train.bak = unique(train.bak$Cliente_ID)
@@ -34,5 +34,9 @@ gc()
 
 
 VERBOSE = 1
-source("wip.001.R")
+SemanaList = (3:7)
 
+source("wip.002.R")
+remove(train)
+remove(test)
+gc()

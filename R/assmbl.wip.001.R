@@ -12,11 +12,34 @@ print(DATA_SET)
 # PREDICT Demanda_uni_equil:
 
 fmla_c_glmnet =     c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
+fmla_c_glmnet =     c("AA","AB","F","G")
 fmla_c_glmnet =     c("AA","AB","F","G","AAw7","ABw7","Fw7","Gw7")
 fmla_c_penalized =  c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_penalized =     c("AA","AB","F","G")
 #fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
-fmla_c_xgb =        c("AA","AB","F","G")
+fmla_c_xgb =        c("B","AA","AB","Aw7","AAw7","ABw7","Aw6","AAw6","ABw6","Aw5","AAw5","ABw5") # good, 0.49, depth=10
+
+fmla_c_xgb =        c("B","Bw7","Bw6","Bw5","Bw4","Fw7","Gw7","Fw6","Gw6","Fw5","Gw5","Fw4","Gw4",
+                      "Aw7","AAw7","ABw7",
+                      "ACw7","ADw7","AW6","AAw6","ABw6","ACw6","ADw6","Aw5","AAw5","ABw5","ACw5","ADw5","AAw4","ABw4","ACw4","ADw4","AAw3","ABw3","ACw3","ADw3",
+                      "NAw7","NBw7","NCw7","NDw7",
+                      "NAw6","NBw6","NCw6","NDw6",
+                      "NAw5","NBw5","NCw5","NDw5",
+                      "NAw4","NBw4","NCw4","NDw4",
+                      "NAw3","NBw3","NCw3","NDw3"
+                      )
+
+fmla_c_xgb =        c(
+                      "Aw7","Aw6","Aw5","Aw4",#"Aw3",
+                      "NAw7","NBw7","NCw7","NDw7",
+                      "NAw6","NBw6","NCw6","NDw6",
+                      "NAw5","NBw5","NCw5","NDw5",
+                      "NAw4","NBw4","NCw4","NDw4",
+                      "NAw3","NBw3","NCw3","NDw3"
+                      )
+
+
+fmla_c_xgb =        c("A","Aw7","Aw6","Aw5","Aw4")
 fmla_c_sgd =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_sgd =     c("AA","AB","F","G")
 fmla_c_glm =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
@@ -158,8 +181,8 @@ for (j in fmla_c)
 df.test$id <- NULL
 df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
 # FIT on train ...
-dtrain <- xgb.DMatrix(data = as.matrix(df.train), label=df.train.target)
-dtest <- xgb.DMatrix(data = as.matrix(df.test), label=df.test.target, missing = NaN)
+dtrain <- xgb.DMatrix(data = as.matrix(df.train), label=df.train.target, missing = NA)
+dtest <- xgb.DMatrix(data = as.matrix(df.test), label=df.test.target, missing = NA)
 watchlist <- list(train = dtrain, test = dtest)
 
 log1pEval <- function(preds, dtrain)
@@ -171,16 +194,16 @@ log1pEval <- function(preds, dtrain)
   return(list(metric="error",value=err))
 }
 
-nround = 60
+nround = 120
 param <- list(  
   #objective           = "multi:softprob", num_class = 4,
   objective           = "reg:linear",
   booster             = "gbtree",
   #booster             = "gblinear",
   base_score          = 0.5,
-  eta                 = 0.15,#0.05, #0.02, # 0.06, #0.01,
-  max_depth           = 2, #changed from default of 8
-  subsample           = 0.8, #0.9, # 0.7
+  eta                 = 0.1,#0.05, #0.02, # 0.06, #0.01,
+  max_depth           = 10, #changed from default of 8
+  subsample           = 0.85, #0.9, # 0.7
   colsample_bytree    = 0.7, # 0.7
   #num_parallel_tree   = 2,
   nthread = 4,
@@ -191,6 +214,7 @@ param <- list(
   min_child_weight    = 1, #2
   eval_metric         = log1pEval,
   #eval_metric         = "rmse",
+  early_stopping_rounds    = 10,
   maximize = FALSE
 )
 
@@ -200,7 +224,7 @@ fit.cv.res = xgb.cv(param, dtrain,nrounds = nround,nfold = 5,metrics = "error",s
 }
 
 set.seed(100)
-fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 10,maximize = FALSE,watchlist)
+fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maximize = FALSE,watchlist)
 xgb.plot.importance(xgb.importance(model=fit.train))
 head(xgb.importance(model=fit.train))
 # PREDICT on test ...
