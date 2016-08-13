@@ -18,6 +18,10 @@ fmla_c_penalized =  c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","D
 fmla_c_penalized =     c("AA","AB","F","G")
 #fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
 fmla_c_xgb =        c("B","AA","AB","Aw7","AAw7","ABw7","Aw6","AAw6","ABw6","Aw5","AAw5","ABw5") # good, 0.49, depth=10
+fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","Aw7","AAw7","ABw7","Aw6")#, # GOOD 0.487 depth 12
+fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","ABw7")#, # GOOD 0.4869 depth 14
+fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","AAw6","ABw7","ABw6")#, # 
+
 
 fmla_c_xgb =        c("B","Bw7","Bw6","Bw5","Bw4","Fw7","Gw7","Fw6","Gw6","Fw5","Gw5","Fw4","Gw4",
                       "Aw7","AAw7","ABw7",
@@ -26,17 +30,26 @@ fmla_c_xgb =        c("B","Bw7","Bw6","Bw5","Bw4","Fw7","Gw7","Fw6","Gw6","Fw5",
                       "NAw6","NBw6","NCw6","NDw6",
                       "NAw5","NBw5","NCw5","NDw5",
                       "NAw4","NBw4","NCw4","NDw4",
-                      "NAw3","NBw3","NCw3","NDw3"
-                      )
+                      "NAw3","NBw3","NCw3","NDw3")
 
 fmla_c_xgb =        c(
-                      "Aw7","Aw6","Aw5","Aw4",#"Aw3",
+                      "NAw6","NCw6",#"NDw6",
+                      "Aw7","Aw6","Aw5","Aw4",
+                      "Gw7","Gw6","Gw5","Gw4",
+                      "B","AA")#,"AB","AAw7","ABw7","AAw6","ABw6")
+                        #,"AAw6","ABw6","Aw5","AAw5","ABw5"
+                      )#,#"Aw3",
                       "NAw7","NBw7","NCw7","NDw7",
-                      "NAw6","NBw6","NCw6","NDw6",
                       "NAw5","NBw5","NCw5","NDw5",
                       "NAw4","NBw4","NCw4","NDw4",
                       "NAw3","NBw3","NCw3","NDw3"
                       )
+
+
+  
+
+fmla_c_xgb =        c(
+  "Aw7","Aw6","Aw5","Aw4")#"Aw3")
 
 
 fmla_c_xgb =        c("A","Aw7","Aw6","Aw5","Aw4")
@@ -194,27 +207,27 @@ log1pEval <- function(preds, dtrain)
   return(list(metric="error",value=err))
 }
 
-nround = 120
+nround = 40
 param <- list(  
   #objective           = "multi:softprob", num_class = 4,
   objective           = "reg:linear",
   booster             = "gbtree",
   #booster             = "gblinear",
   base_score          = 0.5,
-  eta                 = 0.1,#0.05, #0.02, # 0.06, #0.01,
-  max_depth           = 10, #changed from default of 8
-  subsample           = 0.85, #0.9, # 0.7
-  colsample_bytree    = 0.7, # 0.7
+  eta                 = 0.05,#0.05, #0.02, # 0.06, #0.01,
+  max_depth           = 14, #changed from default of 8
+  subsample           = 0.5, #0.9, # 0.7
+  colsample_bytree    = 0.5, # 0.7
   #num_parallel_tree   = 2,
   nthread = 4,
   alpha = 0,    #0.0001,
   lambda = 0,
   gamma = 0,
   scale_pos_weight = 1,
-  min_child_weight    = 1, #2
+  min_child_weight    = 4, #2
   eval_metric         = log1pEval,
   #eval_metric         = "rmse",
-  early_stopping_rounds    = 10,
+  early_stopping_rounds    = 2,
   maximize = FALSE
 )
 
@@ -228,7 +241,7 @@ fit.train = xgb.train(params=param,dtrain,nrounds=nround,print.every.n = 2,maxim
 xgb.plot.importance(xgb.importance(model=fit.train))
 head(xgb.importance(model=fit.train))
 # PREDICT on test ...
-pred_test = predict(fit.train, as.matrix(df.test),missing = NaN)
+pred_test = predict(fit.train, as.matrix(df.test),missing = NA)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure3(pred_test,df.test.target)
 if (VERBOSE == 1){
