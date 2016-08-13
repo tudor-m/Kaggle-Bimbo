@@ -19,8 +19,8 @@ fmla_c_penalized =     c("AA","AB","F","G")
 #fmla_c_xgb =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX","F","H","I","J","K")
 fmla_c_xgb =        c("B","AA","AB","Aw7","AAw7","ABw7","Aw6","AAw6","ABw6","Aw5","AAw5","ABw5") # good, 0.49, depth=10
 fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","Aw7","AAw7","ABw7","Aw6")#, # GOOD 0.487 depth 12
-fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","ABw7")#, # GOOD 0.4869 depth 14
-fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","AAw6","ABw7","ABw6")#, # 
+fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","ABw7")#, # GOOD 0.4869 or 0.4836 depth 14
+fmla_c_xgb =        c("NAw6","NBw6","NCw6","Aw7","Aw6","Aw5","Aw4","B","AA","AB","AAw7","AAw6","ABw7","ABw6","Bw7","Bw6","Bw5","Bw4")#, # Even BETTER 0.7985 depth = 14
 
 
 fmla_c_xgb =        c("B","Bw7","Bw6","Bw5","Bw4","Fw7","Gw7","Fw6","Gw6","Fw5","Gw5","Fw4","Gw4",
