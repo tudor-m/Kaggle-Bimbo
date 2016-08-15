@@ -26,6 +26,7 @@ fmla_c_xgb_5 =        c(                               "B","AA","AB","Cw7","Cw6"
 fmla_c_xgb_6 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #  0.47835, i.d.
 fmla_c_xgb_7 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Hw7","Hw6","Hw5","Hw4")#, #  0.4791, i.d.
 
+fmla_c_penalized = fmla_c_xgb_5
 
 fmla_c_sgd =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 fmla_c_sgd =     c("AA","AB","F","G")
@@ -65,14 +66,19 @@ pred_test_glmnet = pred_test
 err_pred_test_glmnet = err_pred_test
 
 
+sink(file="output.txt",split=TRUE)
+for (l1 in seq(1,40,5)) for (l2 in seq(1,40,5)) { print (c("Penalized, ","l1 = ",l1," l2 = ",l2))
 # with PENALIZED:
 print("PENALIZED")
 fmla_c = fmla_c_penalized
+print(fmla_c)
 # LOAD the train and test data:
 df.train <- data.frame(id=idxTrain)
 for (j in fmla_c)
   df.train[j] = getDataT(DATA_SET,paste("s_feat_train_all_",j,sep = ""))[idxTrain]
 df.train$id <- NULL
+x = as.matrix(df.train)
+for (j in 1:ncol(x)) x[which(!is.finite(x[,j])),j] = (mean(x[which(is.finite(x[,j])),j]))
 df.train.target = getDataT(DATA_SET,"train")[idxTrain,]$Demanda_uni_equil
 df.test <- data.frame(id=idxTest)
 for (j in fmla_c)
@@ -82,9 +88,11 @@ df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
 # FIT on train ...
 fmla_penalized = as.formula(paste("df.train.target ~ ",paste(names(df.train),collapse = "+")))
 fmla = fmla_penalized
-fit.train = penalized(fmla,data=df.train,model="linear",standardize = TRUE, lambda1 = 2, lambda2 = 4,trace=FALSE,epsilon = 1e-7)
+fit.train = penalized(fmla,data=as.data.frame(x),model="linear",standardize = TRUE, lambda1 = l1, lambda2 = l2,trace=FALSE,epsilon = 1e-4)
 # PREDICT on test cv ...
-pred_test = predict(fit.train,df.test)[,1]
+x = as.matrix(df.test)
+for (j in 1:ncol(x)) x[which(is.na(x[,j])),j] = (mean(x[,j],na.rm=TRUE))
+pred_test = predict(fit.train,as.data.frame((x)))[,1]
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure3(pred_test,df.test.target)
 if (VERBOSE == 1){
@@ -92,7 +100,8 @@ if (VERBOSE == 1){
 }
 pred_test_penalized = pred_test
 err_pred_test_penalized = err_pred_test
-
+}
+sink()
 
 # with GLM:
 print("GLM")
