@@ -23,8 +23,9 @@ fmla_c_penalized =     c("AA","AB","F","G")
 # fmla_c_xgb_3 =        c("A","AA","AB","B","C","D","E","G","ABMAX","BMAX","CMAX","DMAX","EMAX","GMAX")
 # fmla_c_xgb_4 =        c("NAw7","NAw6","NAw5","NBw7","NBw6","NBw5","NCw7","NCw6","NCw5","ABw7","ABw6","ABw5","Bw7","Bw6","Bw5","Bw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #                 0.4791  w. depth = 28; 0.4790 w. depth = 24; 0.4782 w. depth = 20; 0.4779 w. depth = 18; 0.4785 w. depth = 14
 fmla_c_xgb_5 =        c(                               "B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #                 0.4781413  w. depth = 14, min_child_weight =5
-fmla_c_xgb_6 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #  0.47835, i.d.
-fmla_c_xgb_7 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Hw7","Hw6","Hw5","Hw4")#, #  0.4791, i.d.
+#fmla_c_xgb_6 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #  0.47835, i.d.
+fmla_c_xgb_5 =        c(                            "Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Hw7","Hw6","Hw5","Hw4")#, #  0.4773204, i.d.
+fmla_c_xgb_5 =        c(                               "B","AA","AB","Jw7","Jw6","Jw5","Jw4","Hw7","Hw6","Hw5","Hw4")#, #                 0.4781413  w. depth = 14, min_child_weight =5
 
 fmla_c_penalized = fmla_c_xgb_5
 
@@ -67,7 +68,6 @@ err_pred_test_glmnet = err_pred_test
 
 
 sink(file="output.txt",split=TRUE)
-for (l1 in seq(1,40,5)) for (l2 in seq(1,40,5)) { print (c("Penalized, ","l1 = ",l1," l2 = ",l2))
 # with PENALIZED:
 print("PENALIZED")
 fmla_c = fmla_c_penalized
@@ -88,6 +88,8 @@ df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
 # FIT on train ...
 fmla_penalized = as.formula(paste("df.train.target ~ ",paste(names(df.train),collapse = "+")))
 fmla = fmla_penalized
+l1 = 100
+l2 = 100
 fit.train = penalized(fmla,data=as.data.frame(x),model="linear",standardize = TRUE, lambda1 = l1, lambda2 = l2,trace=FALSE,epsilon = 1e-4)
 # PREDICT on test cv ...
 x = as.matrix(df.test)
@@ -100,7 +102,7 @@ if (VERBOSE == 1){
 }
 pred_test_penalized = pred_test
 err_pred_test_penalized = err_pred_test
-}
+
 sink()
 
 # with GLM:
