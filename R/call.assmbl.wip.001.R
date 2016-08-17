@@ -43,7 +43,7 @@ ssq = 1:ceiling(num_Cli/nCli)
 # ssq = 3:10
 # ssq = 2
 # ssq = c(1,5,8,9,16,18) # the worst
-ssq = 3
+# ssq = 3
 
 for (jBin in ssq)
 {
