@@ -112,7 +112,6 @@ err_pred_test_xgb[[jj]] = err_pred_test
 
 #######################################
 # Average the predictions:
-err_pred_test_all = c(err_pred_test_glm,err_pred_test_glmnet,err_pred_test_penalized,err_pred_test_sgd,err_pred_test_xgb)
 s = 0; for (i in 1:length(pred_test_xgb)) s=s+pred_test_xgb[[i]]; s = s/3
 pred_test_all_mean = s;
 pred_test_all_mean.bak = pred_test_all_mean
