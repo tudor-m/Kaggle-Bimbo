@@ -24,7 +24,7 @@ test.bak = getDataT(DATA_SET,"test")
 pred_test_all_list = list()
 pred_test_all.bak_list = list()
 df.test.target_list = list()
-mean_pred_test_list = list()
+
 mean_pred_test_combined_list = list()
 
 # Split Clients in approx equal clusters of less than nCli Clients
@@ -67,10 +67,8 @@ for (jBin in ssq)
   total_pred_test[idxTest,]$id = test$id
   total_pred_test[idxTest,]$val = mean_pred_test_combined
 
-  pred_test_all.bak_list[[jBin]] = pred_test_all.bak
-  pred_test_all_list[[jBin]] = pred_test_all
   df.test.target_list[[jBin]] = df.test.target
-  mean_pred_test_list[[jBin]] = mean_pred_test
+
   mean_pred_test_combined_list[[jBin]] = mean_pred_test_combined
   
   gc()
