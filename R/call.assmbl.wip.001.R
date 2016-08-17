@@ -10,6 +10,8 @@ source("futil.R")
 # 5.2 - Global Validation: Train(semana 3-8), CV(9)
 # 5.3 - Submissions:       Train (3-9), Test(10)
 
+sink(file="r.output.txt",split=TRUE)
+
 VALIDATION = 5.2
 VERBOSE = 1
 #DATA_RELOAD = 1
@@ -55,9 +57,7 @@ for (jBin in ssq)
   
   train    = train.bak[idxTrain,]
   test     = test.bak[idxTest,]
-  sink(file="r.output.txt",split=TRUE)
   source("assmbl.wip.002.R")
-  sink()
 # TODO:  
 #  idx = which(total_pred_test$id %in% test$id)
 #  total_pred_test[idx,]$val = pred_test
@@ -78,6 +78,7 @@ for (jBin in ssq)
 
 err_total = errMeasure3(total_pred_test$val,test.bak$Demanda_uni_equil)
 print(c("total err:",err_total))
+sink()
 
 
 
