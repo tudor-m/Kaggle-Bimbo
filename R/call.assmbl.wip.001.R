@@ -55,8 +55,9 @@ for (jBin in ssq)
   
   train    = train.bak[idxTrain,]
   test     = test.bak[idxTest,]
-
-  source("assmbl.wip.001.R")
+  sink(file="r.output.txt",split=TRUE)
+  source("assmbl.wip.002.R")
+  sink()
 # TODO:  
 #  idx = which(total_pred_test$id %in% test$id)
 #  total_pred_test[idx,]$val = pred_test
