@@ -34,11 +34,12 @@ s_feat_list_all = list()
 s_feat_train_all = list()
 s_feat_test_all = list()
 
-#######################################
-saveDataT(train,DATABASE,"train")
-saveDataT(test,DATABASE,"test")
-#######################################
+setHere =  !exists("EXTERNAL_DATA") | (exists("EXTERNAL_DATA") & EXTERNAL_DATA==FALSE)
 
+if (setHere == TRUE) {
+  
+DATABASE = "TMP"
+  
 feat_list = list(
   list("Cliente_ID"),
   list("Producto_ID"),
@@ -70,8 +71,16 @@ class_name_list = c(
   "J",
   "K"
 )
+
+}
+
+#######################################
+saveDataT(train,DATABASE,"train",compress = TRUE)
+saveDataT(test,DATABASE,"test",compress = TRUE)
+#######################################
+
+
 s_fct = s_fct_mean
-DATABASE = "TMP"
 for (ii in 1:length(feat_list))
 {
   #######################################
@@ -121,18 +130,21 @@ for (ii in 1:length(feat_list))
     s_feat_test <- merge(test,s_class,by=c_feat,all.x=TRUE)[order(id),list(id,V1)]
     s_feat_test_this = s_feat_test$V1
     
-    saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""))
-    saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""))
+    saveDataT(s_feat_train_this,DATABASE,paste("s_feat_train_all","_",class_name,sep=""),compress = TRUE)
+    saveDataT(s_feat_test_this,DATABASE,paste("s_feat_test_all","_",class_name,sep=""),compress = TRUE)
     remove(s_feat_train_this)
     remove(s_feat_test_this)
     
     gc()
     print(paste(class_name,"done"))
     #######################################
+    train = train.swp
+    remove(train.swp)
+    gc()
     
   }}
 
-
+if (1==0) {
 
 class_name_list = c(
   "AAMAX",
@@ -150,7 +162,6 @@ class_name_list = c(
   "KMAX"
 )
 s_fct = s_fct_max
-DATABASE = "TMP"
 for (ii in 1:length(feat_list))
 {
   #######################################
@@ -215,4 +226,5 @@ for (S in SemanaList) {
   remove(train.swp)
   gc()
   
+}
 }

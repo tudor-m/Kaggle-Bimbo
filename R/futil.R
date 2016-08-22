@@ -20,11 +20,11 @@ errMeasure3 <- function (vPred, vTarget)
 }
 
 
-saveDataT <- function(object,data.base.name,object.name)
+saveDataT <- function(object,data.base.name,object.name,compress = FALSE)
 {
   if (FALSE == dir.exists(paste("Rdatabase//",data.base.name,sep = "")))
     dir.create(path = paste("Rdatabase//",data.base.name,sep = ""),recursive = TRUE)
-  saveRDS(object, file = paste("Rdatabase//",data.base.name,"//",object.name,".rds",sep = ""),compress=FALSE)
+  saveRDS(object, file = paste("Rdatabase//",data.base.name,"//",object.name,".rds",sep = ""),compress)
 }
 
 getDataT <- function(data.base.name,object.name)

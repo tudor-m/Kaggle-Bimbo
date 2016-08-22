@@ -10,7 +10,8 @@ source("futil.R")
 # 5.2 - Global Validation: Train(semana 3-8), CV(9)
 # 5.3 - Submissions:       Train (3-9), Test(10)
 
-sink(file="r.output.txt",split=TRUE)
+sink(file="r.output.txt",split=TRUE,append = TRUE)
+print(timestamp())
 
 VALIDATION = 5.2
 VERBOSE = 1
@@ -18,6 +19,7 @@ VERBOSE = 1
 #wip.R = "wip.000.R"
 
 DATA_SET = "CV-1"
+#DATA_SET = "CV-2"
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
 
@@ -43,7 +45,7 @@ ssq = 1:ceiling(num_Cli/nCli)
 # ssq = 3:10
 # ssq = 2
 # ssq = c(1,5,8,9,16,18) # the worst
-# ssq = 3
+#ssq = 3
 
 for (jBin in ssq)
 {
@@ -76,6 +78,8 @@ for (jBin in ssq)
 
 err_total = errMeasure3(total_pred_test$val,test.bak$Demanda_uni_equil)
 print(c("total err:",err_total))
+# Save the CV-1 results:
+saveDataT(total_pred_test,DATA_SET,"prediction",compress = TRUE)
 sink()
 
 
