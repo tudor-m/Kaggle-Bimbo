@@ -18,8 +18,11 @@ VERBOSE = 1
 #DATA_RELOAD = 1
 #wip.R = "wip.000.R"
 
-DATA_SET = "CV-1"
+#DATA_SET = "CV-1"
 #DATA_SET = "CV-2"
+DATA_SET = "TEST-1"
+#DATA_SET = "TEST-2"
+
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
 
@@ -59,7 +62,10 @@ for (jBin in ssq)
   
   train    = train.bak[idxTrain,]
   test     = test.bak[idxTest,]
-  source("assmbl.wip.002.R")
+  if (DATA_SET=="CV-1" | DATA_SET=="CV-2")
+    source("assmbl.wip.002.R")
+  if (DATA_SET=="TEST-1" | DATA_SET=="TEST-2")
+    source("assmbl.wip.002-test.R")
 # TODO:  
 #  idx = which(total_pred_test$id %in% test$id)
 #  total_pred_test[idx,]$val = pred_test
