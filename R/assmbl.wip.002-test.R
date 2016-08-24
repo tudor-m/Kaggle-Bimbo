@@ -4,25 +4,24 @@ library(penalized)
 library(xgboost)
 library(glmnet)
 library(Ckmeans.1d.dp)
-# DATA_SET = "CV-1"
 # Cluster - defined by rows to be assembled:
 #idx = c(1:10000) #e.g.
 
 print(DATA_SET)
 # PREDICT Demanda_uni_equil:
 
-if (DATA_SET == "CV-1")
+if (DATA_SET == "TEST-1")
 {
-  fmla_c_xgb_1 =        c(  "B","AA","AB","Cw7","Cw6","Cw5","Cw4","Gw7","Gw6","Gw5","Gw4")#, #                 0.4781413  w. depth = 14, min_child_weight =5
-  fmla_c_xgb_2 =        c("Dw7","Dw6","Dw5","Dw4","B","AA","AB","Cw7","Cw6","Cw5","Cw4","Hw7","Hw6","Hw5","Hw4")#, #  0.4773204, i.d.
-  fmla_c_xgb_3 =        c(  "B","AA","AB","Jw7","Jw6","Jw5","Jw4","Hw7","Hw6","Hw5","Hw4")#, #                 0.4781413  w. depth = 14, min_child_weight =5
+  fmla_c_xgb_1 =        c(  "B","AA","AB","Cw9","Cw8","Cw7","Cw6","Gw9","Gw8","Gw7","Gw6")#, #                 0.4781413  w. depth = 14, min_child_weight =5
+  fmla_c_xgb_2 =        c("Dw9","Dw8","Dw7","Dw6","B","AA","AB","Cw9","Cw8","Cw7","Cw6","Hw9","Hw8","Hw7","Hw6")#, #  0.4773204, i.d.
+  fmla_c_xgb_3 =        c(  "B","AA","AB","Jw9","Jw8","Jw7","Jw6","Hw9","Hw8","Hw7","Hw6")#, #                 0.4781413  w. depth = 14, min_child_weight =5
 }
 
-if (DATA_SET == "CV-2")
+if (DATA_SET == "TEST-2")
 {
-  fmla_c_xgb_1 =        c(  "B","AA","AB","Cw8","Cw7","Cw6","Cw5","Gw8","Gw7","Gw6","Gw5")#, #                 0.4781413  w. depth = 14, min_child_weight =5
-  fmla_c_xgb_2 =        c("Dw8","Dw7","Dw6","Dw5","B","AA","AB","Cw8","Cw7","Cw6","Cw5","Hw8","Hw7","Hw6","Hw5")#, #  0.4773204, i.d.
-  fmla_c_xgb_3 =        c(  "B","AA","AB","Jw8","Jw7","Jw6","Jw5","Hw8","Hw7","Hw6","Hw5")#, #                 0.4781413  w. depth = 14, min_child_weight =5
+  fmla_c_xgb_1 =        c(  "B","AA","AB","Cw10","Cw9","Cw8","Cw7","Gw10","Gw9","Gw8","Gw7")#, #                 0.4781413  w. depth = 14, min_child_weight =5
+  fmla_c_xgb_2 =        c("Dw10","Dw9","Dw8","Dw7","B","AA","AB","Cw10","Cw9","Cw8","Cw7","Hw10","Hw9","Hw8","Hw7")#, #  0.4773204, i.d.
+  fmla_c_xgb_3 =        c(  "B","AA","AB","Jw10","Jw9","Jw8","Jw7","Hw10","Hw9","Hw8","Hw7")#, #                 0.4781413  w. depth = 14, min_child_weight =5
 }
 
 
@@ -51,7 +50,7 @@ for (j in fmla_c)
   df.test[j] = getDataT(DATA_SET,paste("s_feat_test_all_",j,sep = ""))[idxTest]
 df.test$id <- NULL
 df.test.target = getDataT(DATA_SET,"test")[idxTest,]$Demanda_uni_equil
-if (DATA_SET == "CV-1") {
+if (DATA_SET == "TEST-1") {
 # FIT on train ...
 dtrain <- xgb.DMatrix(data = as.matrix(df.train), label=df.train.target, missing = NA)
 dtest <- xgb.DMatrix(data = as.matrix(df.test), label=df.test.target, missing = NA)
@@ -123,8 +122,8 @@ err_pred_test_xgb[[jj]] = err_pred_test
  
 }
 }
-if (DATA_SET == "CV-2") {
-fit.train = getDataT("CV-1",paste(as.character(c("fit.train",".",jBin,".",jj)),collapse = ""))
+if (DATA_SET == "TEST-2") {
+fit.train = getDataT("TEST-1",paste(as.character(c("fit.train",".",jBin,".",jj)),collapse = ""))
 pred_test = predict(fit.train, as.matrix(df.test),missing = NA)
 pred_test[which(pred_test<0)] = 0
 err_pred_test = errMeasure3(pred_test,df.test.target)
