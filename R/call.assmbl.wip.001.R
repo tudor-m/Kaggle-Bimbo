@@ -20,8 +20,9 @@ VERBOSE = 1
 
 #DATA_SET = "CV-1"
 #DATA_SET = "CV-2"
-DATA_SET = "TEST-1"
+#DATA_SET = "TEST-1"
 #DATA_SET = "TEST-2"
+DATA_SET = "CV-TOTAL"
 
 train.bak = getDataT(DATA_SET,"train")
 test.bak = getDataT(DATA_SET,"test")
@@ -66,7 +67,9 @@ for (jBin in ssq)
     source("assmbl.wip.002.R")
   if (DATA_SET=="TEST-1" | DATA_SET=="TEST-2")
     source("assmbl.wip.002-test.R")
-# TODO:  
+  if (DATA_SET=="CV-TOTAL")
+    source("assmbl.wip.002-cv-total.R")
+  # TODO:  
 #  idx = which(total_pred_test$id %in% test$id)
 #  total_pred_test[idx,]$val = pred_test
 #}
